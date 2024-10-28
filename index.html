@@ -79,6 +79,7 @@
             height: fit-content;
             margin: auto;
         }
+
         .par {
             text-align: center;
             padding: 5px 10px 10px;
@@ -87,22 +88,26 @@
             border-radius: 8px;
             max-width: 300px;
         }
-        .par span{
+
+        .par span {
             min-width: 100px;
             max-width: 200px;
         }
-        .par div{
+
+        .par div {
             font-size: 100px;
             line-height: 100px;
             align-items: center;
             min-width: 100px;
             max-width: 200px;
         }
-        .par h1{
+
+        .par h1 {
             font-size: 17px;
             padding: 2px 0;
         }
-        .par p{
+
+        .par p {
             font-size: 10px;
             color: rgb(121, 121, 121);
         }
@@ -135,19 +140,18 @@
 
 </body>
 <script type="text/javascript">
-const fs = require('fs');
-const path = require('path');
-
-// Путь к файлу базы данных
-const dbPath = path.resolve(__dirname, './db/db.json');
-
-// Чтение данных из файла
-const rawData = fs.readFileSync(dbPath, 'utf-8');
-const database = JSON.parse(rawData);
-
-console.log('Данные из файла:', database);
-
-
+    const db = [
+        {
+            title: "Любить",
+            china: "爱",
+            pin: "ài",
+        },
+        {
+            title: "универсальное счетное словоуниверсальное счетное слово",
+            china: "爱爱爱",
+            pin: "àli"
+        }
+    ]
 
     function par(a) {
         document.querySelector(`.par_${a}`).classList.toggle('active')
