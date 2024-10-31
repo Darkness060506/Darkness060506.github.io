@@ -12,6 +12,9 @@
             box-sizing: border-box;
             transition: all 0.2s;
         }
+        *::-webkit-scrollbar{
+            display: none;
+        }
 
         body {
             height: 100vh;
@@ -139,6 +142,73 @@
         .lol .lo {
             color: rgb(93, 93, 255);
         }
+
+        .main_filt {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+            margin-top: 20px;
+            max-height: 300px;
+            min-width: 400px;
+            max-width: 400px;
+            border-radius: 20px;
+            background-color: rgb(48, 48, 48);
+        }
+        .main_filt_block{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            overflow: auto;
+        }
+        .main_filt .main_filt_block_block {
+            padding-left: 10px;
+            border-radius: 10px;
+            width: 100%;
+            padding: 10px;
+            display: flex;
+            margin-bottom: 10px;
+            align-items: center;
+            justify-content: space-between;
+            background-color: rgb(68, 68, 68);
+            box-shadow: 1px 2px 2px rgb(60, 60, 60);
+        }
+
+        .main_filt .main_filt_block_block h1 {
+            font-size: 25px;
+
+            min-width: 70px;
+            max-width: 130px;
+            height: fit-content;
+            text-align: center;
+            padding: 5px 10px 5px;
+            background-color: rgb(61, 61, 61);
+            box-shadow: 1px 2px 2px rgb(60, 60, 60);
+            border-radius: 8px;
+            max-width: 300px;
+        }
+
+        .main_filt .main_filt_block_block .rg {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-left: 10px;
+        }
+        .main_filt .main_filt_block_block .rg h1 {
+            font-size: 13px;
+        }
+        .find{
+            display: flex;
+            width: 100%;
+        }
+        .find input{
+            width: 100%;
+            padding:5px 10px;
+            outline: none;
+        }
+        .find button{
+            padding:5px 10px;
+        }
     </style>
 </head>
 
@@ -167,7 +237,15 @@
         </div>
         <button onclick="refresh()" class="refresher">Refresh</button>
     </div>
+    <div class="main_filt">
+        <div class="main_filt_block">
 
+        </div>
+        <div class="find">
+            <input type="text" class="filt_inp">
+            <button class="filt" onclick="filterWords_lol()">Поиск</и>
+        </div>
+    </div>
 </body>
 <script>
     let lol_1 = true
@@ -175,1763 +253,1761 @@
     let lol_3 = false
     let hsk1_old = [
         {
-            "character": "零",
-            "pinyin": "líng",
-            "translation": "ноль"
+            character: "零",
+            pinyin: "líng",
+            translation: "ноль"
         },
         {
-            "character": "爱",
-            "pinyin": "ài",
-            "translation": "любить"
+            character: "爱",
+            pinyin: "ài",
+            translation: "любить"
         },
         {
-            "character": "八",
-            "pinyin": "bā",
-            "translation": "восемь"
+            character: "八",
+            pinyin: "bā",
+            translation: "восемь"
         },
         {
-            "character": "爸爸",
-            "pinyin": "bàba",
-            "translation": "папа"
+            character: "爸爸",
+            pinyin: "bàba",
+            translation: "папа"
         },
         {
-            "character": "杯子",
-            "pinyin": "bēizi",
-            "translation": "стакан"
+            character: "杯子",
+            pinyin: "bēizi",
+            translation: "стакан"
         },
         {
-            "character": "北京",
-            "pinyin": "Běijīng",
-            "translation": "Пекин"
+            character: "北京",
+            pinyin: "Běijīng",
+            translation: "Пекин"
         },
         {
-            "character": "本",
-            "pinyin": "běn",
-            "translation": "счётное слово для книг"
+            character: "本",
+            pinyin: "běn",
+            translation: "счётное слово для книг"
         },
         {
-            "character": "不",
-            "pinyin": "bù",
-            "translation": "не"
+            character: "不",
+            pinyin: "bù",
+            translation: "не"
         },
         {
-            "character": "菜",
-            "pinyin": "cài",
-            "translation": "блюдо"
+            character: "菜",
+            pinyin: "cài",
+            translation: "блюдо"
         },
         {
-            "character": "茶",
-            "pinyin": "chá",
-            "translation": "чай"
+            character: "茶",
+            pinyin: "chá",
+            translation: "чай"
         },
         {
-            "character": "吃",
-            "pinyin": "chī",
-            "translation": "есть"
+            character: "吃",
+            pinyin: "chī",
+            translation: "есть"
         },
         {
-            "character": "出租车",
-            "pinyin": "chūzūchē",
-            "translation": "такси"
+            character: "出租车",
+            pinyin: "chūzūchē",
+            translation: "такси"
         },
         {
-            "character": "打电话",
-            "pinyin": "dǎ diànhuà",
-            "translation": "звонить по телефону"
+            character: "打电话",
+            pinyin: "dǎ diànhuà",
+            translation: "звонить по телефону"
         },
         {
-            "character": "大",
-            "pinyin": "dà",
-            "translation": "большой"
+            character: "大",
+            pinyin: "dà",
+            translation: "большой"
         },
         {
-            "character": "的",
-            "pinyin": "de",
-            "translation": "суффикс притяжательности"
+            character: "的",
+            pinyin: "de",
+            translation: "суффикс притяжательности"
         },
         {
-            "character": "点",
-            "pinyin": "diǎn",
-            "translation": "час, точка"
+            character: "点",
+            pinyin: "diǎn",
+            translation: "час, точка"
         },
         {
-            "character": "电脑",
-            "pinyin": "diànnǎo",
-            "translation": "компьютер"
+            character: "电脑",
+            pinyin: "diànnǎo",
+            translation: "компьютер"
         },
         {
-            "character": "电视",
-            "pinyin": "diànshì",
-            "translation": "телевидение"
+            character: "电视",
+            pinyin: "diànshì",
+            translation: "телевидение"
         },
         {
-            "character": "电影",
-            "pinyin": "diànyǐng",
-            "translation": "фильм"
+            character: "电影",
+            pinyin: "diànyǐng",
+            translation: "фильм"
         },
         {
-            "character": "东西",
-            "pinyin": "dōngxi",
-            "translation": "вещи"
+            character: "东西",
+            pinyin: "dōngxi",
+            translation: "вещи"
         },
         {
-            "character": "都",
-            "pinyin": "dōu",
-            "translation": "все"
+            character: "都",
+            pinyin: "dōu",
+            translation: "все"
         },
         {
-            "character": "读",
-            "pinyin": "dú",
-            "translation": "читать"
+            character: "读",
+            pinyin: "dú",
+            translation: "читать"
         },
         {
-            "character": "对不起",
-            "pinyin": "duìbuqǐ",
-            "translation": "извините"
+            character: "对不起",
+            pinyin: "duìbuqǐ",
+            translation: "извините"
         },
         {
-            "character": "多",
-            "pinyin": "duō",
-            "translation": "много"
+            character: "多",
+            pinyin: "duō",
+            translation: "много"
         },
         {
-            "character": "多少",
-            "pinyin": "duōshǎo",
-            "translation": "сколько"
+            character: "多少",
+            pinyin: "duōshǎo",
+            translation: "сколько"
         },
         {
-            "character": "儿子",
-            "pinyin": "érzi",
-            "translation": "сын"
+            character: "儿子",
+            pinyin: "érzi",
+            translation: "сын"
         },
         {
-            "character": "二",
-            "pinyin": "èr",
-            "translation": "два"
+            character: "二",
+            pinyin: "èr",
+            translation: "два"
         },
         {
-            "character": "饭店",
-            "pinyin": "fàndiàn",
-            "translation": "ресторан"
+            character: "饭店",
+            pinyin: "fàndiàn",
+            translation: "ресторан"
         },
         {
-            "character": "飞机",
-            "pinyin": "fēijī",
-            "translation": "самолёт"
+            character: "飞机",
+            pinyin: "fēijī",
+            translation: "самолёт"
         },
         {
-            "character": "分钟",
-            "pinyin": "fēnzhōng",
-            "translation": "минута"
+            character: "分钟",
+            pinyin: "fēnzhōng",
+            translation: "минута"
         },
         {
-            "character": "高兴",
-            "pinyin": "gāoxìng",
-            "translation": "радостный"
+            character: "高兴",
+            pinyin: "gāoxìng",
+            translation: "радостный"
         },
         {
-            "character": "个",
-            "pinyin": "gè",
-            "translation": "универсальное счётное слово"
+            character: "个",
+            pinyin: "gè",
+            translation: "универсальное счётное слово"
         },
         {
-            "character": "工作",
-            "pinyin": "gōngzuò",
-            "translation": "работа"
+            character: "工作",
+            pinyin: "gōngzuò",
+            translation: "работа"
         },
         {
-            "character": "狗",
-            "pinyin": "gǒu",
-            "translation": "собака"
+            character: "狗",
+            pinyin: "gǒu",
+            translation: "собака"
         },
         {
-            "character": "汉语",
-            "pinyin": "Hànyǔ",
-            "translation": "китайский язык"
+            character: "汉语",
+            pinyin: "Hànyǔ",
+            translation: "китайский язык"
         },
         {
-            "character": "好",
-            "pinyin": "hǎo",
-            "translation": "хороший"
+            character: "好",
+            pinyin: "hǎo",
+            translation: "хороший"
         },
         {
-            "character": "号",
-            "pinyin": "hào",
-            "translation": "номер"
+            character: "号",
+            pinyin: "hào",
+            translation: "номер"
         },
         {
-            "character": "喝",
-            "pinyin": "hē",
-            "translation": "пить"
+            character: "喝",
+            pinyin: "hē",
+            translation: "пить"
         },
         {
-            "character": "和",
-            "pinyin": "hé",
-            "translation": "и"
+            character: "和",
+            pinyin: "hé",
+            translation: "и"
         },
         {
-            "character": "很",
-            "pinyin": "hěn",
-            "translation": "очень"
+            character: "很",
+            pinyin: "hěn",
+            translation: "очень"
         },
         {
-            "character": "后面",
-            "pinyin": "hòumiàn",
-            "translation": "сзади"
+            character: "后面",
+            pinyin: "hòumiàn",
+            translation: "сзади"
         },
         {
-            "character": "回",
-            "pinyin": "huí",
-            "translation": "возвращаться"
+            character: "回",
+            pinyin: "huí",
+            translation: "возвращаться"
         },
         {
-            "character": "会",
-            "pinyin": "huì",
-            "translation": "уметь"
+            character: "会",
+            pinyin: "huì",
+            translation: "уметь"
         },
         {
-            "character": "几",
-            "pinyin": "jǐ",
-            "translation": "сколько"
+            character: "几",
+            pinyin: "jǐ",
+            translation: "сколько"
         },
         {
-            "character": "家",
-            "pinyin": "jiā",
-            "translation": "дом"
+            character: "家",
+            pinyin: "jiā",
+            translation: "дом"
         },
         {
-            "character": "叫",
-            "pinyin": "jiào",
-            "translation": "звать"
+            character: "叫",
+            pinyin: "jiào",
+            translation: "звать"
         },
         {
-            "character": "今天",
-            "pinyin": "jīntiān",
-            "translation": "сегодня"
+            character: "今天",
+            pinyin: "jīntiān",
+            translation: "сегодня"
         },
         {
-            "character": "九",
-            "pinyin": "jiǔ",
-            "translation": "девять"
+            character: "九",
+            pinyin: "jiǔ",
+            translation: "девять"
         },
         {
-            "character": "开",
-            "pinyin": "kāi",
-            "translation": "открывать"
+            character: "开",
+            pinyin: "kāi",
+            translation: "открывать"
         },
         {
-            "character": "看",
-            "pinyin": "kàn",
-            "translation": "смотреть"
+            character: "看",
+            pinyin: "kàn",
+            translation: "смотреть"
         },
         {
-            "character": "看见",
-            "pinyin": "kànjiàn",
-            "translation": "увидеть"
+            character: "看见",
+            pinyin: "kànjiàn",
+            translation: "увидеть"
         },
         {
-            "character": "块",
-            "pinyin": "kuài",
-            "translation": "юань"
+            character: "块",
+            pinyin: "kuài",
+            translation: "юань"
         },
         {
-            "character": "来",
-            "pinyin": "lái",
-            "translation": "приходить"
+            character: "来",
+            pinyin: "lái",
+            translation: "приходить"
         },
         {
-            "character": "老师",
-            "pinyin": "lǎoshī",
-            "translation": "учитель"
+            character: "老师",
+            pinyin: "lǎoshī",
+            translation: "учитель"
         },
         {
-            "character": "了",
-            "pinyin": "le",
-            "translation": "частица (прошедшее время)"
+            character: "了",
+            pinyin: "le",
+            translation: "частица (прошедшее время)"
         },
         {
-            "character": "冷",
-            "pinyin": "lěng",
-            "translation": "холодный"
+            character: "冷",
+            pinyin: "lěng",
+            translation: "холодный"
         },
         {
-            "character": "里",
-            "pinyin": "lǐ",
-            "translation": "в"
+            character: "里",
+            pinyin: "lǐ",
+            translation: "в"
         },
         {
-            "character": "六",
-            "pinyin": "liù",
-            "translation": "шесть"
+            character: "六",
+            pinyin: "liù",
+            translation: "шесть"
         },
         {
-            "character": "妈妈",
-            "pinyin": "māma",
-            "translation": "мама"
+            character: "妈妈",
+            pinyin: "māma",
+            translation: "мама"
         },
         {
-            "character": "吗",
-            "pinyin": "ma",
-            "translation": "вопросительная частица"
+            character: "吗",
+            pinyin: "ma",
+            translation: "вопросительная частица"
         },
         {
-            "character": "买",
-            "pinyin": "mǎi",
-            "translation": "покупать"
+            character: "买",
+            pinyin: "mǎi",
+            translation: "покупать"
         },
         {
-            "character": "猫",
-            "pinyin": "māo",
-            "translation": "кот"
+            character: "猫",
+            pinyin: "māo",
+            translation: "кот"
         },
         {
-            "character": "没",
-            "pinyin": "méi",
-            "translation": "нет"
+            character: "没",
+            pinyin: "méi",
+            translation: "нет"
         },
         {
-            "character": "没关系",
-            "pinyin": "méi guānxi",
-            "translation": "неважно"
+            character: "没关系",
+            pinyin: "méi guānxi",
+            translation: "неважно"
         },
         {
-            "character": "米饭",
-            "pinyin": "mǐfàn",
-            "translation": "варёный рис"
+            character: "米饭",
+            pinyin: "mǐfàn",
+            translation: "варёный рис"
         },
         {
-            "character": "明天",
-            "pinyin": "míngtiān",
-            "translation": "завтра"
+            character: "明天",
+            pinyin: "míngtiān",
+            translation: "завтра"
         },
         {
-            "character": "名字",
-            "pinyin": "míngzi",
-            "translation": "имя"
+            character: "名字",
+            pinyin: "míngzi",
+            translation: "имя"
         },
         {
-            "character": "哪",
-            "pinyin": "nǎ",
-            "translation": "который"
+            character: "哪",
+            pinyin: "nǎ",
+            translation: "который"
         },
         {
-            "character": "那",
-            "pinyin": "nà",
-            "translation": "тот"
+            character: "那",
+            pinyin: "nà",
+            translation: "тот"
         },
         {
-            "character": "呢",
-            "pinyin": "ne",
-            "translation": "вопросительная частица"
+            character: "呢",
+            pinyin: "ne",
+            translation: "вопросительная частица"
         },
         {
-            "character": "能",
-            "pinyin": "néng",
-            "translation": "мочь"
+            character: "能",
+            pinyin: "néng",
+            translation: "мочь"
         },
         {
-            "character": "你",
-            "pinyin": "nǐ",
-            "translation": "ты"
+            character: "你",
+            pinyin: "nǐ",
+            translation: "ты"
         },
         {
-            "character": "年",
-            "pinyin": "nián",
-            "translation": "год"
+            character: "年",
+            pinyin: "nián",
+            translation: "год"
         },
         {
-            "character": "女儿",
-            "pinyin": "nǚ'ér",
-            "translation": "дочь"
+            character: "女儿",
+            pinyin: "nǚ'ér",
+            translation: "дочь"
         },
         {
-            "character": "朋友",
-            "pinyin": "péngyou",
-            "translation": "друг"
+            character: "朋友",
+            pinyin: "péngyou",
+            translation: "друг"
         },
         {
-            "character": "漂亮",
-            "pinyin": "piàoliang",
-            "translation": "красивый"
+            character: "漂亮",
+            pinyin: "piàoliang",
+            translation: "красивый"
         },
         {
-            "character": "苹果",
-            "pinyin": "píngguǒ",
-            "translation": "яблоко"
+            character: "苹果",
+            pinyin: "píngguǒ",
+            translation: "яблоко"
         },
         {
-            "character": "七",
-            "pinyin": "qī",
-            "translation": "семь"
+            character: "七",
+            pinyin: "qī",
+            translation: "семь"
         },
         {
-            "character": "钱",
-            "pinyin": "qián",
-            "translation": "деньги"
+            character: "钱",
+            pinyin: "qián",
+            translation: "деньги"
         },
         {
-            "character": "前面",
-            "pinyin": "qiánmiàn",
-            "translation": "впереди"
+            character: "前面",
+            pinyin: "qiánmiàn",
+            translation: "впереди"
         },
         {
-            "character": "请",
-            "pinyin": "qǐng",
-            "translation": "приглашать"
+            character: "请",
+            pinyin: "qǐng",
+            translation: "приглашать"
         },
         {
-            "character": "去",
-            "pinyin": "qù",
-            "translation": "идти"
+            character: "去",
+            pinyin: "qù",
+            translation: "идти"
         },
         {
-            "character": "热",
-            "pinyin": "rè",
-            "translation": "горячий"
+            character: "热",
+            pinyin: "rè",
+            translation: "горячий"
         },
         {
-            "character": "人",
-            "pinyin": "rén",
-            "translation": "человек"
+            character: "人",
+            pinyin: "rén",
+            translation: "человек"
         },
         {
-            "character": "认识",
-            "pinyin": "rènshi",
-            "translation": "знать"
+            character: "认识",
+            pinyin: "rènshi",
+            translation: "знать"
         },
         {
-            "character": "三",
-            "pinyin": "sān",
-            "translation": "три"
+            character: "三",
+            pinyin: "sān",
+            translation: "три"
         },
         {
-            "character": "商店",
-            "pinyin": "shāngdiàn",
-            "translation": "магазин"
+            character: "商店",
+            pinyin: "shāngdiàn",
+            translation: "магазин"
         },
         {
-            "character": "上",
-            "pinyin": "shàng",
-            "translation": "на, над"
+            character: "上",
+            pinyin: "shàng",
+            translation: "на, над"
         },
         {
-            "character": "上午",
-            "pinyin": "shàngwǔ",
-            "translation": "до полудня"
+            character: "上午",
+            pinyin: "shàngwǔ",
+            translation: "до полудня"
         },
         {
-            "character": "少",
-            "pinyin": "shǎo",
-            "translation": "мало"
+            character: "少",
+            pinyin: "shǎo",
+            translation: "мало"
         },
         {
-            "character": "谁",
-            "pinyin": "shéi",
-            "translation": "кто"
+            character: "谁",
+            pinyin: "shéi",
+            translation: "кто"
         },
         {
-            "character": "什么",
-            "pinyin": "shénme",
-            "translation": "что"
+            character: "什么",
+            pinyin: "shénme",
+            translation: "что"
         },
         {
-            "character": "十",
-            "pinyin": "shí",
-            "translation": "десять"
+            character: "十",
+            pinyin: "shí",
+            translation: "десять"
         },
         {
-            "character": "时候",
-            "pinyin": "shíhou",
-            "translation": "время"
+            character: "时候",
+            pinyin: "shíhou",
+            translation: "время"
         },
         {
-            "character": "是",
-            "pinyin": "shì",
-            "translation": "быть, являться"
+            character: "是",
+            pinyin: "shì",
+            translation: "быть, являться"
         },
         {
-            "character": "书",
-            "pinyin": "shū",
-            "translation": "книга"
+            character: "书",
+            pinyin: "shū",
+            translation: "книга"
         },
         {
-            "character": "水",
-            "pinyin": "shuǐ",
-            "translation": "вода"
+            character: "水",
+            pinyin: "shuǐ",
+            translation: "вода"
         },
         {
-            "character": "水果",
-            "pinyin": "shuǐguǒ",
-            "translation": "фрукты"
+            character: "水果",
+            pinyin: "shuǐguǒ",
+            translation: "фрукты"
         },
         {
-            "character": "睡觉",
-            "pinyin": "shuìjiào",
-            "translation": "спать"
+            character: "睡觉",
+            pinyin: "shuìjiào",
+            translation: "спать"
         },
         {
-            "character": "说",
-            "pinyin": "shuō",
-            "translation": "говорить"
+            character: "说",
+            pinyin: "shuō",
+            translation: "говорить"
         },
         {
-            "character": "四",
-            "pinyin": "sì",
-            "translation": "четыре"
+            character: "四",
+            pinyin: "sì",
+            translation: "четыре"
         },
         {
-            "character": "岁",
-            "pinyin": "suì",
-            "translation": "лет (о возрасте)"
+            character: "岁",
+            pinyin: "suì",
+            translation: "лет (о возрасте)"
         },
         {
-            "character": "他",
-            "pinyin": "tā",
-            "translation": "он"
+            character: "他",
+            pinyin: "tā",
+            translation: "он"
         },
         {
-            "character": "她",
-            "pinyin": "tā",
-            "translation": "она"
+            character: "她",
+            pinyin: "tā",
+            translation: "она"
         },
         {
-            "character": "太",
-            "pinyin": "tài",
-            "translation": "слишком"
+            character: "太",
+            pinyin: "tài",
+            translation: "слишком"
         },
         {
-            "character": "天气",
-            "pinyin": "tiānqì",
-            "translation": "погода"
+            character: "天气",
+            pinyin: "tiānqì",
+            translation: "погода"
         },
         {
-            "character": "听",
-            "pinyin": "tīng",
-            "translation": "слушать"
+            character: "听",
+            pinyin: "tīng",
+            translation: "слушать"
         },
         {
-            "character": "同学",
-            "pinyin": "tóngxué",
-            "translation": "одноклассник"
+            character: "同学",
+            pinyin: "tóngxué",
+            translation: "одноклассник"
         },
         {
-            "character": "喂",
-            "pinyin": "wèi",
-            "translation": "алло"
+            character: "喂",
+            pinyin: "wèi",
+            translation: "алло"
         },
         {
-            "character": "我",
-            "pinyin": "wǒ",
-            "translation": "я"
+            character: "我",
+            pinyin: "wǒ",
+            translation: "я"
         },
         {
-            "character": "我们",
-            "pinyin": "wǒmen",
-            "translation": "мы"
+            character: "我们",
+            pinyin: "wǒmen",
+            translation: "мы"
         },
         {
-            "character": "五",
-            "pinyin": "wǔ",
-            "translation": "пять"
+            character: "五",
+            pinyin: "wǔ",
+            translation: "пять"
         },
         {
-            "character": "喜欢",
-            "pinyin": "xǐhuan",
-            "translation": "нравиться"
+            character: "喜欢",
+            pinyin: "xǐhuan",
+            translation: "нравиться"
         },
         {
-            "character": "下",
-            "pinyin": "xià",
-            "translation": "под, следующий"
+            character: "下",
+            pinyin: "xià",
+            translation: "под, следующий"
         },
         {
-            "character": "下午",
-            "pinyin": "xiàwǔ",
-            "translation": "после полудня"
+            character: "下午",
+            pinyin: "xiàwǔ",
+            translation: "после полудня"
         },
         {
-            "character": "下雨",
-            "pinyin": "xià yǔ",
-            "translation": "идёт дождь"
+            character: "下雨",
+            pinyin: "xià yǔ",
+            translation: "идёт дождь"
         },
         {
-            "character": "先生",
-            "pinyin": "xiānsheng",
-            "translation": "господин"
+            character: "先生",
+            pinyin: "xiānsheng",
+            translation: "господин"
         },
         {
-            "character": "现在",
-            "pinyin": "xiànzài",
-            "translation": "сейчас"
+            character: "现在",
+            pinyin: "xiànzài",
+            translation: "сейчас"
         },
         {
-            "character": "想",
-            "pinyin": "xiǎng",
-            "translation": "хотеть, думать"
+            character: "想",
+            pinyin: "xiǎng",
+            translation: "хотеть, думать"
         },
         {
-            "character": "小",
-            "pinyin": "xiǎo",
-            "translation": "маленький"
+            character: "小",
+            pinyin: "xiǎo",
+            translation: "маленький"
         },
         {
-            "character": "小姐",
-            "pinyin": "xiǎojiě",
-            "translation": "мисс"
+            character: "小姐",
+            pinyin: "xiǎojiě",
+            translation: "мисс"
         },
         {
-            "character": "些",
-            "pinyin": "xiē",
-            "translation": "немного"
+            character: "些",
+            pinyin: "xiē",
+            translation: "немного"
         },
         {
-            "character": "写",
-            "pinyin": "xiě",
-            "translation": "писать"
+            character: "写",
+            pinyin: "xiě",
+            translation: "писать"
         },
         {
-            "character": "谢谢",
-            "pinyin": "xièxie",
-            "translation": "спасибо"
+            character: "谢谢",
+            pinyin: "xièxie",
+            translation: "спасибо"
         },
         {
-            "character": "星期",
-            "pinyin": "xīngqī",
-            "translation": "неделя"
+            character: "星期",
+            pinyin: "xīngqī",
+            translation: "неделя"
         },
         {
-            "character": "学生",
-            "pinyin": "xuésheng",
-            "translation": "студент"
+            character: "学生",
+            pinyin: "xuésheng",
+            translation: "студент"
         },
         {
-            "character": "学习",
-            "pinyin": "xuéxí",
-            "translation": "учиться"
+            character: "学习",
+            pinyin: "xuéxí",
+            translation: "учиться"
         },
         {
-            "character": "学校",
-            "pinyin": "xuéxiào",
-            "translation": "школа"
+            character: "学校",
+            pinyin: "xuéxiào",
+            translation: "школа"
         },
         {
-            "character": "一",
-            "pinyin": "yī",
-            "translation": "один"
+            character: "一",
+            pinyin: "yī",
+            translation: "один"
         },
         {
-            "character": "一点儿",
-            "pinyin": "yìdiǎnr",
-            "translation": "немного"
+            character: "一点儿",
+            pinyin: "yìdiǎnr",
+            translation: "немного"
         },
         {
-            "character": "衣服",
-            "pinyin": "yīfu",
-            "translation": "одежда"
+            character: "衣服",
+            pinyin: "yīfu",
+            translation: "одежда"
         },
         {
-            "character": "医院",
-            "pinyin": "yīyuàn",
-            "translation": "больница"
+            character: "医院",
+            pinyin: "yīyuàn",
+            translation: "больница"
         },
         {
-            "character": "医生",
-            "pinyin": "yīshēng",
-            "translation": "врач"
+            character: "医生",
+            pinyin: "yīshēng",
+            translation: "врач"
         },
         {
-            "character": "椅子",
-            "pinyin": "yǐzi",
-            "translation": "стул"
+            character: "椅子",
+            pinyin: "yǐzi",
+            translation: "стул"
         },
         {
-            "character": "有",
-            "pinyin": "yǒu",
-            "translation": "иметь"
+            character: "有",
+            pinyin: "yǒu",
+            translation: "иметь"
         },
         {
-            "character": "月",
-            "pinyin": "yuè",
-            "translation": "месяц"
+            character: "月",
+            pinyin: "yuè",
+            translation: "месяц"
         },
         {
-            "character": "在",
-            "pinyin": "zài",
-            "translation": "находиться"
+            character: "在",
+            pinyin: "zài",
+            translation: "находиться"
         },
         {
-            "character": "再见",
-            "pinyin": "zàijiàn",
-            "translation": "до свидания"
+            character: "再见",
+            pinyin: "zàijiàn",
+            translation: "до свидания"
         },
         {
-            "character": "怎么",
-            "pinyin": "zěnme",
-            "translation": "как"
+            character: "怎么",
+            pinyin: "zěnme",
+            translation: "как"
         },
         {
-            "character": "怎么样",
-            "pinyin": "zěnmeyàng",
-            "translation": "как насчёт"
+            character: "怎么样",
+            pinyin: "zěnmeyàng",
+            translation: "как насчёт"
         },
         {
-            "character": "这",
-            "pinyin": "zhè",
-            "translation": "этот"
+            character: "这",
+            pinyin: "zhè",
+            translation: "этот"
         },
         {
-            "character": "中国",
-            "pinyin": "Zhōngguó",
-            "translation": "Китай"
+            character: "中国",
+            pinyin: "Zhōngguó",
+            translation: "Китай"
         },
         {
-            "character": "中午",
-            "pinyin": "zhōngwǔ",
-            "translation": "полдень"
+            character: "中午",
+            pinyin: "zhōngwǔ",
+            translation: "полдень"
         },
         {
-            "character": "住",
-            "pinyin": "zhù",
-            "translation": "жить"
+            character: "住",
+            pinyin: "zhù",
+            translation: "жить"
         },
         {
-            "character": "桌子",
-            "pinyin": "zhuōzi",
-            "translation": "стол"
+            character: "桌子",
+            pinyin: "zhuōzi",
+            translation: "стол"
         },
         {
-            "character": "字",
-            "pinyin": "zì",
-            "translation": "иероглиф"
+            character: "字",
+            pinyin: "zì",
+            translation: "иероглиф"
         },
         {
-            "character": "昨天",
-            "pinyin": "zuótiān",
-            "translation": "вчера"
+            character: "昨天",
+            pinyin: "zuótiān",
+            translation: "вчера"
         },
         {
-            "character": "坐",
-            "pinyin": "zuò",
-            "translation": "сидеть"
+            character: "坐",
+            pinyin: "zuò",
+            translation: "сидеть"
         },
         {
-            "character": "做",
-            "pinyin": "zuò",
-            "translation": "делать"
+            character: "做",
+            pinyin: "zuò",
+            translation: "делать"
         }
     ]
     let hsk2_old = [
         {
-            "character": "吧",
-            "pinyin": "ba",
-            "translation": "частица (выражает побуждение или предположение)"
+            character: "吧",
+            pinyin: "ba",
+            translation: "частица (выражает побуждение или предположение)"
         },
         {
-            "character": "白",
-            "pinyin": "bái",
-            "translation": "белый"
+            character: "白",
+            pinyin: "bái",
+            translation: "белый"
         },
         {
-            "character": "百",
-            "pinyin": "bǎi",
-            "translation": "сто"
+            character: "百",
+            pinyin: "bǎi",
+            translation: "сто"
         },
         {
-            "character": "帮助",
-            "pinyin": "bāngzhù",
-            "translation": "помогать, помощь"
+            character: "帮助",
+            pinyin: "bāngzhù",
+            translation: "помогать, помощь"
         },
         {
-            "character": "报纸",
-            "pinyin": "bàozhǐ",
-            "translation": "газета"
+            character: "报纸",
+            pinyin: "bàozhǐ",
+            translation: "газета"
         },
         {
-            "character": "比",
-            "pinyin": "bǐ",
-            "translation": "чем (при сравнении)"
+            character: "比",
+            pinyin: "bǐ",
+            translation: "чем (при сравнении)"
         },
         {
-            "character": "别",
-            "pinyin": "bié",
-            "translation": "не, не надо (запрет)"
+            character: "别",
+            pinyin: "bié",
+            translation: "не, не надо (запрет)"
         },
         {
-            "character": "宾馆",
-            "pinyin": "bīnguǎn",
-            "translation": "гостиница"
+            character: "宾馆",
+            pinyin: "bīnguǎn",
+            translation: "гостиница"
         },
         {
-            "character": "长",
-            "pinyin": "cháng",
-            "translation": "длинный"
+            character: "长",
+            pinyin: "cháng",
+            translation: "длинный"
         },
         {
-            "character": "穿",
-            "pinyin": "chuān",
-            "translation": "надевать, носить (одежду)"
+            character: "穿",
+            pinyin: "chuān",
+            translation: "надевать, носить (одежду)"
         },
         {
-            "character": "次",
-            "pinyin": "cì",
-            "translation": "раз (сч. слово для действий)"
+            character: "次",
+            pinyin: "cì",
+            translation: "раз (сч. слово для действий)"
         },
         {
-            "character": "从",
-            "pinyin": "cóng",
-            "translation": "из, от, с"
+            character: "从",
+            pinyin: "cóng",
+            translation: "из, от, с"
         },
         {
-            "character": "错",
-            "pinyin": "cuò",
-            "translation": "ошибка, ошибочный"
+            character: "错",
+            pinyin: "cuò",
+            translation: "ошибка, ошибочный"
         },
         {
-            "character": "打篮球",
-            "pinyin": "dǎ lánqiú",
-            "translation": "играть в баскетбол"
+            character: "打篮球",
+            pinyin: "dǎ lánqiú",
+            translation: "играть в баскетбол"
         },
         {
-            "character": "大家",
-            "pinyin": "dàjiā",
-            "translation": "все"
+            character: "大家",
+            pinyin: "dàjiā",
+            translation: "все"
         },
         {
-            "character": "到",
-            "pinyin": "dào",
-            "translation": "прибывать, достигать"
+            character: "到",
+            pinyin: "dào",
+            translation: "прибывать, достигать"
         },
         {
-            "character": "得",
-            "pinyin": "de",
-            "translation": "частица (указание на обстоятельство образа действия)"
+            character: "得",
+            pinyin: "de",
+            translation: "частица (указание на обстоятельство образа действия)"
         },
         {
-            "character": "等",
-            "pinyin": "děng",
-            "translation": "ждать"
+            character: "等",
+            pinyin: "děng",
+            translation: "ждать"
         },
         {
-            "character": "弟弟",
-            "pinyin": "dìdi",
-            "translation": "младший брат"
+            character: "弟弟",
+            pinyin: "dìdi",
+            translation: "младший брат"
         },
         {
-            "character": "第一",
-            "pinyin": "dì-yī",
-            "translation": "первый"
+            character: "第一",
+            pinyin: "dì-yī",
+            translation: "первый"
         },
         {
-            "character": "懂",
-            "pinyin": "dǒng",
-            "translation": "понимать"
+            character: "懂",
+            pinyin: "dǒng",
+            translation: "понимать"
         },
         {
-            "character": "对",
-            "pinyin": "duì",
-            "translation": "правильный, верный"
+            character: "对",
+            pinyin: "duì",
+            translation: "правильный, верный"
         },
         {
-            "character": "房间",
-            "pinyin": "fángjiān",
-            "translation": "комната"
+            character: "房间",
+            pinyin: "fángjiān",
+            translation: "комната"
         },
         {
-            "character": "非常",
-            "pinyin": "fēicháng",
-            "translation": "очень, чрезвычайно"
+            character: "非常",
+            pinyin: "fēicháng",
+            translation: "очень, чрезвычайно"
         },
         {
-            "character": "服务员",
-            "pinyin": "fúwùyuán",
-            "translation": "официант, обслуживающий персонал"
+            character: "服务员",
+            pinyin: "fúwùyuán",
+            translation: "официант, обслуживающий персонал"
         },
         {
-            "character": "高",
-            "pinyin": "gāo",
-            "translation": "высокий"
+            character: "高",
+            pinyin: "gāo",
+            translation: "высокий"
         },
         {
-            "character": "告诉",
-            "pinyin": "gàosu",
-            "translation": "сообщать, говорить"
+            character: "告诉",
+            pinyin: "gàosu",
+            translation: "сообщать, говорить"
         },
         {
-            "character": "哥哥",
-            "pinyin": "gēge",
-            "translation": "старший брат"
+            character: "哥哥",
+            pinyin: "gēge",
+            translation: "старший брат"
         },
         {
-            "character": "给",
-            "pinyin": "gěi",
-            "translation": "давать"
+            character: "给",
+            pinyin: "gěi",
+            translation: "давать"
         },
         {
-            "character": "公共汽车",
-            "pinyin": "gōnggòng qìchē",
-            "translation": "автобус"
+            character: "公共汽车",
+            pinyin: "gōnggòng qìchē",
+            translation: "автобус"
         },
         {
-            "character": "公司",
-            "pinyin": "gōngsī",
-            "translation": "компания, фирма"
+            character: "公司",
+            pinyin: "gōngsī",
+            translation: "компания, фирма"
         },
         {
-            "character": "贵",
-            "pinyin": "guì",
-            "translation": "дорогой (о цене)"
+            character: "贵",
+            pinyin: "guì",
+            translation: "дорогой (о цене)"
         },
         {
-            "character": "过",
-            "pinyin": "guo",
-            "translation": "частица, указывающая на прошедший опыт"
+            character: "过",
+            pinyin: "guo",
+            translation: "частица, указывающая на прошедший опыт"
         },
         {
-            "character": "还",
-            "pinyin": "hái",
-            "translation": "еще"
+            character: "还",
+            pinyin: "hái",
+            translation: "еще"
         },
         {
-            "character": "孩子",
-            "pinyin": "háizi",
-            "translation": "ребенок"
+            character: "孩子",
+            pinyin: "háizi",
+            translation: "ребенок"
         },
         {
-            "character": "好吃",
-            "pinyin": "hǎochī",
-            "translation": "вкусный"
+            character: "好吃",
+            pinyin: "hǎochī",
+            translation: "вкусный"
         },
         {
-            "character": "号",
-            "pinyin": "hào",
-            "translation": "число (в дате), номер"
+            character: "号",
+            pinyin: "hào",
+            translation: "число (в дате), номер"
         },
         {
-            "character": "黑",
-            "pinyin": "hēi",
-            "translation": "черный"
+            character: "黑",
+            pinyin: "hēi",
+            translation: "черный"
         },
         {
-            "character": "红",
-            "pinyin": "hóng",
-            "translation": "красный"
+            character: "红",
+            pinyin: "hóng",
+            translation: "красный"
         },
         {
-            "character": "欢迎",
-            "pinyin": "huānyíng",
-            "translation": "приветствовать, добро пожаловать"
+            character: "欢迎",
+            pinyin: "huānyíng",
+            translation: "приветствовать, добро пожаловать"
         },
         {
-            "character": "回答",
-            "pinyin": "huídá",
-            "translation": "отвечать"
+            character: "回答",
+            pinyin: "huídá",
+            translation: "отвечать"
         },
         {
-            "character": "火车站",
-            "pinyin": "huǒchē zhàn",
-            "translation": "железнодорожный вокзал"
+            character: "火车站",
+            pinyin: "huǒchē zhàn",
+            translation: "железнодорожный вокзал"
         },
         {
-            "character": "机场",
-            "pinyin": "jīchǎng",
-            "translation": "аэропорт"
+            character: "机场",
+            pinyin: "jīchǎng",
+            translation: "аэропорт"
         },
         {
-            "character": "鸡蛋",
-            "pinyin": "jīdàn",
-            "translation": "куриное яйцо"
+            character: "鸡蛋",
+            pinyin: "jīdàn",
+            translation: "куриное яйцо"
         },
         {
-            "character": "件",
-            "pinyin": "jiàn",
-            "translation": "сч. слово для одежды, дела и т.д."
+            character: "件",
+            pinyin: "jiàn",
+            translation: "сч. слово для одежды, дела и т.д."
         },
         {
-            "character": "教室",
-            "pinyin": "jiàoshì",
-            "translation": "класс, аудитория"
+            character: "教室",
+            pinyin: "jiàoshì",
+            translation: "класс, аудитория"
         },
         {
-            "character": "姐姐",
-            "pinyin": "jiějie",
-            "translation": "старшая сестра"
+            character: "姐姐",
+            pinyin: "jiějie",
+            translation: "старшая сестра"
         },
         {
-            "character": "介绍",
-            "pinyin": "jièshào",
-            "translation": "представлять, знакомить"
+            character: "介绍",
+            pinyin: "jièshào",
+            translation: "представлять, знакомить"
         },
         {
-            "character": "进",
-            "pinyin": "jìn",
-            "translation": "входить"
+            character: "进",
+            pinyin: "jìn",
+            translation: "входить"
         },
         {
-            "character": "近",
-            "pinyin": "jìn",
-            "translation": "близкий"
+            character: "近",
+            pinyin: "jìn",
+            translation: "близкий"
         },
         {
-            "character": "就",
-            "pinyin": "jiù",
-            "translation": "именно, как раз"
+            character: "就",
+            pinyin: "jiù",
+            translation: "именно, как раз"
         },
         {
-            "character": "觉得",
-            "pinyin": "juéde",
-            "translation": "считать, полагать"
+            character: "觉得",
+            pinyin: "juéde",
+            translation: "считать, полагать"
         },
         {
-            "character": "咖啡",
-            "pinyin": "kāfēi",
-            "translation": "кофе"
+            character: "咖啡",
+            pinyin: "kāfēi",
+            translation: "кофе"
         },
         {
-            "character": "开始",
-            "pinyin": "kāishǐ",
-            "translation": "начинать, начало"
+            character: "开始",
+            pinyin: "kāishǐ",
+            translation: "начинать, начало"
         },
         {
-            "character": "考试",
-            "pinyin": "kǎoshì",
-            "translation": "экзамен"
+            character: "考试",
+            pinyin: "kǎoshì",
+            translation: "экзамен"
         },
         {
-            "character": "可能",
-            "pinyin": "kěnéng",
-            "translation": "возможно"
+            character: "可能",
+            pinyin: "kěnéng",
+            translation: "возможно"
         },
         {
-            "character": "可以",
-            "pinyin": "kěyǐ",
-            "translation": "можно, разрешается"
+            character: "可以",
+            pinyin: "kěyǐ",
+            translation: "можно, разрешается"
         },
         {
-            "character": "课",
-            "pinyin": "kè",
-            "translation": "урок"
+            character: "课",
+            pinyin: "kè",
+            translation: "урок"
         },
         {
-            "character": "快",
-            "pinyin": "kuài",
-            "translation": "быстрый"
+            character: "快",
+            pinyin: "kuài",
+            translation: "быстрый"
         },
         {
-            "character": "快乐",
-            "pinyin": "kuàilè",
-            "translation": "радостный, веселый"
+            character: "快乐",
+            pinyin: "kuàilè",
+            translation: "радостный, веселый"
         },
         {
-            "character": "累",
-            "pinyin": "lèi",
-            "translation": "уставший"
+            character: "累",
+            pinyin: "lèi",
+            translation: "уставший"
         },
         {
-            "character": "离",
-            "pinyin": "lí",
-            "translation": "отстоять от, покидать"
+            character: "离",
+            pinyin: "lí",
+            translation: "отстоять от, покидать"
         },
         {
-            "character": "两",
-            "pinyin": "liǎng",
-            "translation": "два"
+            character: "两",
+            pinyin: "liǎng",
+            translation: "два"
         },
         {
-            "character": "零",
-            "pinyin": "líng",
-            "translation": "ноль"
+            character: "零",
+            pinyin: "líng",
+            translation: "ноль"
         },
         {
-            "character": "路",
-            "pinyin": "lù",
-            "translation": "дорога"
+            character: "路",
+            pinyin: "lù",
+            translation: "дорога"
         },
         {
-            "character": "旅游",
-            "pinyin": "lǚyóu",
-            "translation": "путешествовать, туризм"
+            character: "旅游",
+            pinyin: "lǚyóu",
+            translation: "путешествовать, туризм"
         },
         {
-            "character": "卖",
-            "pinyin": "mài",
-            "translation": "продавать"
+            character: "卖",
+            pinyin: "mài",
+            translation: "продавать"
         },
         {
-            "character": "慢",
-            "pinyin": "màn",
-            "translation": "медленный"
+            character: "慢",
+            pinyin: "màn",
+            translation: "медленный"
         },
         {
-            "character": "忙",
-            "pinyin": "máng",
-            "translation": "занятый"
+            character: "忙",
+            pinyin: "máng",
+            translation: "занятый"
         },
         {
-            "character": "每",
-            "pinyin": "měi",
-            "translation": "каждый"
+            character: "每",
+            pinyin: "měi",
+            translation: "каждый"
         },
         {
-            "character": "妹妹",
-            "pinyin": "mèimei",
-            "translation": "младшая сестра"
+            character: "妹妹",
+            pinyin: "mèimei",
+            translation: "младшая сестра"
         },
         {
-            "character": "门",
-            "pinyin": "mén",
-            "translation": "дверь"
+            character: "门",
+            pinyin: "mén",
+            translation: "дверь"
         },
         {
-            "character": "男人",
-            "pinyin": "nánrén",
-            "translation": "мужчина"
+            character: "男人",
+            pinyin: "nánrén",
+            translation: "мужчина"
         },
         {
-            "character": "您",
-            "pinyin": "nín",
-            "translation": "вы (вежливое обращение)"
+            character: "您",
+            pinyin: "nín",
+            translation: "вы (вежливое обращение)"
         },
         {
-            "character": "牛奶",
-            "pinyin": "niúnǎi",
-            "translation": "молоко"
+            character: "牛奶",
+            pinyin: "niúnǎi",
+            translation: "молоко"
         },
         {
-            "character": "女人",
-            "pinyin": "nǚrén",
-            "translation": "женщина"
+            character: "女人",
+            pinyin: "nǚrén",
+            translation: "женщина"
         },
         {
-            "character": "旁边",
-            "pinyin": "pángbiān",
-            "translation": "рядом, сбоку"
+            character: "旁边",
+            pinyin: "pángbiān",
+            translation: "рядом, сбоку"
         },
         {
-            "character": "跑步",
-            "pinyin": "pǎobù",
-            "translation": "бегать"
+            character: "跑步",
+            pinyin: "pǎobù",
+            translation: "бегать"
         },
         {
-            "character": "便宜",
-            "pinyin": "piányi",
-            "translation": "дешевый"
+            character: "便宜",
+            pinyin: "piányi",
+            translation: "дешевый"
         },
         {
-            "character": "票",
-            "pinyin": "piào",
-            "translation": "билет"
+            character: "票",
+            pinyin: "piào",
+            translation: "билет"
         },
         {
-            "character": "妻子",
-            "pinyin": "qīzi",
-            "translation": "жена"
+            character: "妻子",
+            pinyin: "qīzi",
+            translation: "жена"
         },
         {
-            "character": "起床",
-            "pinyin": "qǐchuáng",
-            "translation": "вставать с постели"
+            character: "起床",
+            pinyin: "qǐchuáng",
+            translation: "вставать с постели"
         },
         {
-            "character": "千",
-            "pinyin": "qiān",
-            "translation": "тысяча"
+            character: "千",
+            pinyin: "qiān",
+            translation: "тысяча"
         },
         {
-            "character": "晴",
-            "pinyin": "qíng",
-            "translation": "ясный, солнечный"
+            character: "晴",
+            pinyin: "qíng",
+            translation: "ясный, солнечный"
         },
         {
-            "character": "去年",
-            "pinyin": "qùnián",
-            "translation": "прошлый год"
+            character: "去年",
+            pinyin: "qùnián",
+            translation: "прошлый год"
         },
         {
-            "character": "让",
-            "pinyin": "ràng",
-            "translation": "позволять, разрешать"
+            character: "让",
+            pinyin: "ràng",
+            translation: "позволять, разрешать"
         },
         {
-            "character": "日",
-            "pinyin": "rì",
-            "translation": "день, дата"
+            character: "日",
+            pinyin: "rì",
+            translation: "день, дата"
         },
         {
-            "character": "上班",
-            "pinyin": "shàngbān",
-            "translation": "идти на работу"
+            character: "上班",
+            pinyin: "shàngbān",
+            translation: "идти на работу"
         },
         {
-            "character": "身体",
-            "pinyin": "shēntǐ",
-            "translation": "тело, здоровье"
+            character: "身体",
+            pinyin: "shēntǐ",
+            translation: "тело, здоровье"
         },
         {
-            "character": "生病",
-            "pinyin": "shēngbìng",
-            "translation": "заболеть"
+            character: "生病",
+            pinyin: "shēngbìng",
+            translation: "заболеть"
         },
         {
-            "character": "生日",
-            "pinyin": "shēngrì",
-            "translation": "день рождения"
+            character: "生日",
+            pinyin: "shēngrì",
+            translation: "день рождения"
         },
         {
-            "character": "时间",
-            "pinyin": "shíjiān",
-            "translation": "время"
+            character: "时间",
+            pinyin: "shíjiān",
+            translation: "время"
         },
         {
-            "character": "事情",
-            "pinyin": "shìqing",
-            "translation": "дело, событие"
+            character: "事情",
+            pinyin: "shìqing",
+            translation: "дело, событие"
         },
         {
-            "character": "手表",
-            "pinyin": "shǒubiǎo",
-            "translation": "наручные часы"
+            character: "手表",
+            pinyin: "shǒubiǎo",
+            translation: "наручные часы"
         },
         {
-            "character": "手机",
-            "pinyin": "shǒujī",
-            "translation": "мобильный телефон"
+            character: "手机",
+            pinyin: "shǒujī",
+            translation: "мобильный телефон"
         },
         {
-            "character": "送",
-            "pinyin": "sòng",
-            "translation": "дарить, посылать"
+            character: "送",
+            pinyin: "sòng",
+            translation: "дарить, посылать"
         },
         {
-            "character": "所以",
-            "pinyin": "suǒyǐ",
-            "translation": "поэтому"
+            character: "所以",
+            pinyin: "suǒyǐ",
+            translation: "поэтому"
         },
         {
-            "character": "它",
-            "pinyin": "tā",
-            "translation": "оно (неодушевлённые предметы и животные)"
+            character: "它",
+            pinyin: "tā",
+            translation: "оно (неодушевлённые предметы и животные)"
         },
         {
-            "character": "踢足球",
-            "pinyin": "tī zúqiú",
-            "translation": "играть в футбол"
+            character: "踢足球",
+            pinyin: "tī zúqiú",
+            translation: "играть в футбол"
         },
         {
-            "character": "题",
-            "pinyin": "tí",
-            "translation": "тема, вопрос (на экзамене)"
+            character: "题",
+            pinyin: "tí",
+            translation: "тема, вопрос (на экзамене)"
         },
         {
-            "character": "跳舞",
-            "pinyin": "tiàowǔ",
-            "translation": "танцевать"
+            character: "跳舞",
+            pinyin: "tiàowǔ",
+            translation: "танцевать"
         },
         {
-            "character": "外",
-            "pinyin": "wài",
-            "translation": "внешний, снаружи"
+            character: "外",
+            pinyin: "wài",
+            translation: "внешний, снаружи"
         },
         {
-            "character": "完",
-            "pinyin": "wán",
-            "translation": "закончить"
+            character: "完",
+            pinyin: "wán",
+            translation: "закончить"
         },
         {
-            "character": "玩",
-            "pinyin": "wán",
-            "translation": "играть, развлекаться"
+            character: "玩",
+            pinyin: "wán",
+            translation: "играть, развлекаться"
         },
         {
-            "character": "晚上",
-            "pinyin": "wǎnshàng",
-            "translation": "вечер"
+            character: "晚上",
+            pinyin: "wǎnshàng",
+            translation: "вечер"
         },
         {
-            "character": "为什么",
-            "pinyin": "wèishénme",
-            "translation": "почему"
+            character: "为什么",
+            pinyin: "wèishénme",
+            translation: "почему"
         },
         {
-            "character": "问",
-            "pinyin": "wèn",
-            "translation": "спрашивать"
+            character: "问",
+            pinyin: "wèn",
+            translation: "спрашивать"
         },
         {
-            "character": "问题",
-            "pinyin": "wèntí",
-            "translation": "вопрос, проблема"
+            character: "问题",
+            pinyin: "wèntí",
+            translation: "вопрос, проблема"
         },
         {
-            "character": "西瓜",
-            "pinyin": "xīguā",
-            "translation": "арбуз"
+            character: "西瓜",
+            pinyin: "xīguā",
+            translation: "арбуз"
         },
         {
-            "character": "希望",
-            "pinyin": "xīwàng",
-            "translation": "надеяться, желание"
+            character: "希望",
+            pinyin: "xīwàng",
+            translation: "надеяться, желание"
         },
         {
-            "character": "洗",
-            "pinyin": "xǐ",
-            "translation": "мыть, стирать"
+            character: "洗",
+            pinyin: "xǐ",
+            translation: "мыть, стирать"
         },
         {
-            "character": "小时",
-            "pinyin": "xiǎoshí",
-            "translation": "час"
+            character: "小时",
+            pinyin: "xiǎoshí",
+            translation: "час"
         },
         {
-            "character": "笑",
-            "pinyin": "xiào",
-            "translation": "смеяться, улыбаться"
+            character: "笑",
+            pinyin: "xiào",
+            translation: "смеяться, улыбаться"
         },
         {
-            "character": "新",
-            "pinyin": "xīn",
-            "translation": "новый"
+            character: "新",
+            pinyin: "xīn",
+            translation: "новый"
         },
         {
-            "character": "姓",
-            "pinyin": "xìng",
-            "translation": "фамилия"
+            character: "姓",
+            pinyin: "xìng",
+            translation: "фамилия"
         },
         {
-            "character": "休息",
-            "pinyin": "xiūxi",
-            "translation": "отдыхать"
+            character: "休息",
+            pinyin: "xiūxi",
+            translation: "отдыхать"
         },
         {
-            "character": "雪",
-            "pinyin": "xuě",
-            "translation": "снег"
+            character: "雪",
+            pinyin: "xuě",
+            translation: "снег"
         },
         {
-            "character": "颜色",
-            "pinyin": "yánsè",
-            "translation": "цвет"
+            character: "颜色",
+            pinyin: "yánsè",
+            translation: "цвет"
         },
         {
-            "character": "眼睛",
-            "pinyin": "yǎnjing",
-            "translation": "глаза"
+            character: "眼睛",
+            pinyin: "yǎnjing",
+            translation: "глаза"
         },
         {
-            "character": "羊肉",
-            "pinyin": "yángròu",
-            "translation": "баранина"
+            character: "羊肉",
+            pinyin: "yángròu",
+            translation: "баранина"
         },
         {
-            "character": "药",
-            "pinyin": "yào",
-            "translation": "лекарство"
+            character: "药",
+            pinyin: "yào",
+            translation: "лекарство"
         },
         {
-            "character": "要",
-            "pinyin": "yào",
-            "translation": "хотеть, нужно"
+            character: "要",
+            pinyin: "yào",
+            translation: "хотеть, нужно"
         },
         {
-            "character": "也",
-            "pinyin": "yě",
-            "translation": "тоже"
+            character: "也",
+            pinyin: "yě",
+            translation: "тоже"
         },
         {
-            "character": "一下",
-            "pinyin": "yíxià",
-            "translation": "немного, разок"
+            character: "一下",
+            pinyin: "yíxià",
+            translation: "немного, разок"
         },
         {
-            "character": "已经",
-            "pinyin": "yǐjīng",
-            "translation": "уже"
+            character: "已经",
+            pinyin: "yǐjīng",
+            translation: "уже"
         },
         {
-            "character": "意思",
-            "pinyin": "yìsi",
-            "translation": "смысл, значение"
+            character: "意思",
+            pinyin: "yìsi",
+            translation: "смысл, значение"
         },
         {
-            "character": "因为",
-            "pinyin": "yīnwèi",
-            "translation": "потому что"
+            character: "因为",
+            pinyin: "yīnwèi",
+            translation: "потому что"
         },
         {
-            "character": "阴",
-            "pinyin": "yīn",
-            "translation": "пасмурный"
+            character: "阴",
+            pinyin: "yīn",
+            translation: "пасмурный"
         },
         {
-            "character": "游泳",
-            "pinyin": "yóuyǒng",
-            "translation": "плавать"
+            character: "游泳",
+            pinyin: "yóuyǒng",
+            translation: "плавать"
         },
         {
-            "character": "右边",
-            "pinyin": "yòubiān",
-            "translation": "правая сторона"
+            character: "右边",
+            pinyin: "yòubiān",
+            translation: "правая сторона"
         },
         {
-            "character": "鱼",
-            "pinyin": "yú",
-            "translation": "рыба"
+            character: "鱼",
+            pinyin: "yú",
+            translation: "рыба"
         },
         {
-            "character": "远",
-            "pinyin": "yuǎn",
-            "translation": "далекий"
+            character: "远",
+            pinyin: "yuǎn",
+            translation: "далекий"
         },
         {
-            "character": "运动",
-            "pinyin": "yùndòng",
-            "translation": "спорт, заниматься спортом"
+            character: "运动",
+            pinyin: "yùndòng",
+            translation: "спорт, заниматься спортом"
         },
         {
-            "character": "再",
-            "pinyin": "zài",
-            "translation": "снова"
+            character: "再",
+            pinyin: "zài",
+            translation: "снова"
         },
         {
-            "character": "早上",
-            "pinyin": "zǎoshang",
-            "translation": "утро"
+            character: "早上",
+            pinyin: "zǎoshang",
+            translation: "утро"
         },
         {
-            "character": "丈夫",
-            "pinyin": "zhàngfu",
-            "translation": "муж"
+            character: "丈夫",
+            pinyin: "zhàngfu",
+            translation: "муж"
         },
         {
-            "character": "找",
-            "pinyin": "zhǎo",
-            "translation": "искать"
+            character: "找",
+            pinyin: "zhǎo",
+            translation: "искать"
         },
         {
-            "character": "着",
-            "pinyin": "zhe",
-            "translation": "частица (указывает на продолженность действия)"
+            character: "着",
+            pinyin: "zhe",
+            translation: "частица (указывает на продолженность действия)"
         },
         {
-            "character": "真",
-            "pinyin": "zhēn",
-            "translation": "настоящий, подлинный"
+            character: "真",
+            pinyin: "zhēn",
+            translation: "настоящий, подлинный"
         },
         {
-            "character": "正在",
-            "pinyin": "zhèngzài",
-            "translation": "в процессе, сейчас"
+            character: "正在",
+            pinyin: "zhèngzài",
+            translation: "в процессе, сейчас"
         },
         {
-            "character": "知道",
-            "pinyin": "zhīdào",
-            "translation": "знать"
+            character: "知道",
+            pinyin: "zhīdào",
+            translation: "знать"
         },
         {
-            "character": "准备",
-            "pinyin": "zhǔnbèi",
-            "translation": "готовить(ся)"
+            character: "准备",
+            pinyin: "zhǔnbèi",
+            translation: "готовить(ся)"
         },
         {
-            "character": "走",
-            "pinyin": "zǒu",
-            "translation": "идти, уходить"
+            character: "走",
+            pinyin: "zǒu",
+            translation: "идти, уходить"
         },
         {
-            "character": "最",
-            "pinyin": "zuì",
-            "translation": "самый"
+            character: "最",
+            pinyin: "zuì",
+            translation: "самый"
         },
         {
-            "character": "左边",
-            "pinyin": "zuǒbiān",
-            "translation": "левая сторона"
+            character: "左边",
+            pinyin: "zuǒbiān",
+            translation: "левая сторона"
         }
     ];
     let hsk3_old = [
-        { "character": "爱", "pinyin": "ài", "translation": "любить" },
-        { "character": "安静", "pinyin": "ānjìng", "translation": "тихий, спокойный" },
-        { "character": "把", "pinyin": "bǎ", "translation": "предлог (для инверсии объекта)" },
-        { "character": "班", "pinyin": "bān", "translation": "класс, группа" },
-        { "character": "搬", "pinyin": "bān", "translation": "переезжать, перемещать" },
-        { "character": "办法", "pinyin": "bànfǎ", "translation": "метод, способ" },
-        { "character": "办公室", "pinyin": "bàngōngshì", "translation": "офис" },
-        { "character": "包", "pinyin": "bāo", "translation": "сумка, завернуть" },
-        { "character": "饱", "pinyin": "bǎo", "translation": "сытый" },
-        { "character": "被", "pinyin": "bèi", "translation": "предлог для пассива" },
-        { "character": "比较", "pinyin": "bǐjiào", "translation": "сравнительно" },
-        { "character": "比赛", "pinyin": "bǐsài", "translation": "соревнование" },
-        { "character": "必须", "pinyin": "bìxū", "translation": "должен, обязательно" },
-        { "character": "变化", "pinyin": "biànhuà", "translation": "изменение" },
-        { "character": "表示", "pinyin": "biǎoshì", "translation": "выражать" },
-        { "character": "表演", "pinyin": "biǎoyǎn", "translation": "представлять, играть (на сцене)" },
-        { "character": "别人", "pinyin": "biérén", "translation": "другие" },
-        { "character": "冰箱", "pinyin": "bīngxiāng", "translation": "холодильник" },
-        { "character": "才", "pinyin": "cái", "translation": "только, лишь" },
-        { "character": "参加", "pinyin": "cānjiā", "translation": "участвовать" },
-        { "character": "草", "pinyin": "cǎo", "translation": "трава" },
-        { "character": "层", "pinyin": "céng", "translation": "этаж, слой" },
-        { "character": "差", "pinyin": "chà", "translation": "плохой, разница" },
-        { "character": "长", "pinyin": "cháng", "translation": "длинный" },
-        { "character": "超市", "pinyin": "chāoshì", "translation": "супермаркет" },
-        { "character": "穿", "pinyin": "chuān", "translation": "носить (одежду)" },
-        { "character": "船", "pinyin": "chuán", "translation": "корабль" },
-        { "character": "成绩", "pinyin": "chéngjì", "translation": "успехи, достижения" },
-        { "character": "春", "pinyin": "chūn", "translation": "весна" },
-        { "character": "词语", "pinyin": "cíyǔ", "translation": "слова и выражения" },
-        { "character": "聪明", "pinyin": "cōngmíng", "translation": "умный" },
-        { "character": "打扫", "pinyin": "dǎsǎo", "translation": "убирать, подметать" },
-        { "character": "打算", "pinyin": "dǎsuàn", "translation": "планировать" },
-        { "character": "带", "pinyin": "dài", "translation": "приносить, брать с собой" },
-        { "character": "担心", "pinyin": "dānxīn", "translation": "беспокоиться" },
-        { "character": "蛋糕", "pinyin": "dàngāo", "translation": "торт" },
-        { "character": "当然", "pinyin": "dāngrán", "translation": "конечно" },
-        { "character": "地", "pinyin": "de", "translation": "служебное слово (перед сказуемым)" },
-        { "character": "灯", "pinyin": "dēng", "translation": "лампа" },
-        { "character": "地方", "pinyin": "dìfāng", "translation": "место" },
-        { "character": "地铁", "pinyin": "dìtiě", "translation": "метро" },
-        { "character": "地图", "pinyin": "dìtú", "translation": "карта" },
-        { "character": "电梯", "pinyin": "diàntī", "translation": "лифт" },
-        { "character": "电子邮件", "pinyin": "diànzǐ yóujiàn", "translation": "электронная почта" },
-        { "character": "东", "pinyin": "dōng", "translation": "восток" },
-        { "character": "冬", "pinyin": "dōng", "translation": "зима" },
-        { "character": "动物", "pinyin": "dòngwù", "translation": "животное" },
-        { "character": "短", "pinyin": "duǎn", "translation": "короткий" },
-        { "character": "段", "pinyin": "duàn", "translation": "отрезок, кусок" },
-        { "character": "锻炼", "pinyin": "duànliàn", "translation": "тренироваться" },
-        { "character": "多么", "pinyin": "duōme", "translation": "такой, настолько" },
-        { "character": "饿", "pinyin": "è", "translation": "голодный" },
-        { "character": "耳朵", "pinyin": "ěrduo", "translation": "ухо" },
-        { "character": "发", "pinyin": "fā", "translation": "отправить" },
-        { "character": "发现", "pinyin": "fāxiàn", "translation": "обнаружить" },
-        { "character": "方便", "pinyin": "fāngbiàn", "translation": "удобный" },
-        { "character": "放", "pinyin": "fàng", "translation": "ставить, отпускать" },
-        { "character": "放心", "pinyin": "fàngxīn", "translation": "быть спокойным" },
-        { "character": "分", "pinyin": "fēn", "translation": "минутa, делить" },
-        { "character": "附近", "pinyin": "fùjìn", "translation": "окрестности" },
-        { "character": "复习", "pinyin": "fùxí", "translation": "повторять" },
-        { "character": "干净", "pinyin": "gānjìng", "translation": "чистый" },
-        { "character": "感冒", "pinyin": "gǎnmào", "translation": "простудиться" },
-        { "character": "感兴趣", "pinyin": "gǎn xìngqù", "translation": "интересоваться" },
-        { "character": "刚才", "pinyin": "gāngcái", "translation": "только что" },
-        { "character": "个子", "pinyin": "gèzi", "translation": "рост, комплекция" },
-        { "character": "根据", "pinyin": "gēnjù", "translation": "на основании, согласно" },
-        { "character": "跟", "pinyin": "gēn", "translation": "с, за" },
-        { "character": "更", "pinyin": "gèng", "translation": "еще более" },
-        { "character": "公园", "pinyin": "gōngyuán", "translation": "парк" },
-        { "character": "故事", "pinyin": "gùshi", "translation": "история, рассказ" },
-        { "character": "刮风", "pinyin": "guā fēng", "translation": "дуть (о ветре)" },
-        { "character": "关", "pinyin": "guān", "translation": "закрывать" },
-        { "character": "关系", "pinyin": "guānxi", "translation": "отношение, связь" },
-        { "character": "关心", "pinyin": "guānxīn", "translation": "заботиться" },
-        { "character": "关于", "pinyin": "guānyú", "translation": "о, относительно" },
-        { "character": "国家", "pinyin": "guójiā", "translation": "государство" },
-        { "character": "过去", "pinyin": "guòqù", "translation": "прошлое" },
-        { "character": "还是", "pinyin": "háishì", "translation": "или, все еще" },
-        { "character": "害怕", "pinyin": "hàipà", "translation": "бояться" },
-        { "character": "黑板", "pinyin": "hēibǎn", "translation": "доска (классная)" },
-        { "character": "后来", "pinyin": "hòulái", "translation": "позже, потом" },
-        { "character": "护照", "pinyin": "hùzhào", "translation": "паспорт" },
-        { "character": "花", "pinyin": "huā", "translation": "цветок, тратить" },
-        { "character": "画", "pinyin": "huà", "translation": "рисовать, картина" },
-        { "character": "坏", "pinyin": "huài", "translation": "плохой, испорченный" },
-        { "character": "环境", "pinyin": "huánjìng", "translation": "окружение, среда" },
-        { "character": "换", "pinyin": "huàn", "translation": "менять, обменивать" },
-        { "character": "黄河", "pinyin": "huánghé", "translation": "Желтая река" },
-        { "character": "回答", "pinyin": "huídá", "translation": "отвечать" },
-        { "character": "会议", "pinyin": "huìyì", "translation": "совещание, конференция" },
-        { "character": "或者", "pinyin": "huòzhě", "translation": "или (в утвердит. предложениях)" },
-        { "character": "机会", "pinyin": "jīhuì", "translation": "шанс, возможность" },
-        { "character": "极", "pinyin": "jí", "translation": "очень, крайний" },
-        { "character": "记得", "pinyin": "jìde", "translation": "помнить" },
-        { "character": "季节", "pinyin": "jìjié", "translation": "сезон, время года" },
-        { "character": "检查", "pinyin": "jiǎnchá", "translation": "проверять, осматривать" },
-        { "character": "简单", "pinyin": "jiǎndān", "translation": "простой" },
-        { "character": "见面", "pinyin": "jiànmiàn", "translation": "встречаться" },
-        { "character": "健康", "pinyin": "jiànkāng", "translation": "здоровье" },
-        { "character": "讲", "pinyin": "jiǎng", "translation": "рассказывать, объяснять" },
-        { "character": "教", "pinyin": "jiāo", "translation": "учить, преподавать" },
-        { "character": "角", "pinyin": "jiǎo", "translation": "рог, угол" },
-        { "character": "脚", "pinyin": "jiǎo", "translation": "нога, ступня" },
-        { "character": "叫", "pinyin": "jiào", "translation": "звать, кричать" },
-        { "character": "接", "pinyin": "jiē", "translation": "принимать, брать (телефон)" },
-        { "character": "街道", "pinyin": "jiēdào", "translation": "улица" },
-        { "character": "结婚", "pinyin": "jiéhūn", "translation": "жениться, выходить замуж" },
-        { "character": "结束", "pinyin": "jiéshù", "translation": "заканчивать" },
-        { "character": "节目", "pinyin": "jiémù", "translation": "программа" },
-        { "character": "节日", "pinyin": "jiérì", "translation": "праздник" },
-        { "character": "解决", "pinyin": "jiějué", "translation": "решать (проблему)" },
-        { "character": "借", "pinyin": "jiè", "translation": "брать взаймы" },
-        { "character": "经常", "pinyin": "jīngcháng", "translation": "часто" },
-        { "character": "经过", "pinyin": "jīngguò", "translation": "проходить через" },
-        { "character": "经理", "pinyin": "jīnglǐ", "translation": "менеджер" },
-        { "character": "久", "pinyin": "jiǔ", "translation": "долго" },
-        { "character": "旧", "pinyin": "jiù", "translation": "старый (о вещах)" },
-        { "character": "句子", "pinyin": "jùzi", "translation": "предложение" },
-        { "character": "决定", "pinyin": "juédìng", "translation": "решать, решение" },
-        { "character": "渴", "pinyin": "kě", "translation": "хотеть пить" },
-        { "character": "可爱", "pinyin": "kě'ài", "translation": "милый, симпатичный" },
-        { "character": "刻", "pinyin": "kè", "translation": "четверть (часа)" },
-        { "character": "客人", "pinyin": "kèrén", "translation": "гость, клиент" },
-        { "character": "空调", "pinyin": "kōngtiáo", "translation": "кондиционер" },
-        { "character": "口", "pinyin": "kǒu", "translation": "рот, сч. слово для членов семьи" },
-        { "character": "哭", "pinyin": "kū", "translation": "плакать" },
-        { "character": "裤子", "pinyin": "kùzi", "translation": "брюки" },
-        { "character": "筷子", "pinyin": "kuàizi", "translation": "палочки для еды" },
-        { "character": "蓝", "pinyin": "lán", "translation": "синий" },
-        { "character": "老", "pinyin": "lǎo", "translation": "старый (о людях)" },
-        { "character": "离开", "pinyin": "líkāi", "translation": "покидать, уходить" },
-        { "character": "礼物", "pinyin": "lǐwù", "translation": "подарок" },
-        { "character": "历史", "pinyin": "lìshǐ", "translation": "история" },
-        { "character": "脸", "pinyin": "liǎn", "translation": "лицо" },
-        { "character": "练习", "pinyin": "liànxí", "translation": "практиковаться" },
-        { "character": "辆", "pinyin": "liàng", "translation": "сч. слово для транспорта" },
-        { "character": "聊天", "pinyin": "liáotiān", "translation": "болтать, общаться" },
-        { "character": "了解", "pinyin": "liǎojiě", "translation": "понимать, разбираться" },
-        { "character": "邻居", "pinyin": "línjū", "translation": "сосед" },
-        { "character": "楼", "pinyin": "lóu", "translation": "здание, этаж" },
-        { "character": "绿", "pinyin": "lǜ", "translation": "зеленый" },
-        { "character": "马", "pinyin": "mǎ", "translation": "лошадь" },
-        { "character": "马上", "pinyin": "mǎshàng", "translation": "сразу, немедленно" },
-        { "character": "满意", "pinyin": "mǎnyì", "translation": "довольный" },
-        { "character": "帽子", "pinyin": "màozi", "translation": "шапка, головной убор" },
-        { "character": "没关系", "pinyin": "méi guānxi", "translation": "не имеет значения" },
-        { "character": "面包", "pinyin": "miànbāo", "translation": "хлеб" },
-        { "character": "面条", "pinyin": "miàntiáo", "translation": "лапша" },
-        { "character": "明白", "pinyin": "míngbai", "translation": "понимать, ясный" },
-        { "character": "拿", "pinyin": "ná", "translation": "держать, брать" },
-        { "character": "奶奶", "pinyin": "nǎinai", "translation": "бабушка (по отцу)" },
-        { "character": "南", "pinyin": "nán", "translation": "юг" },
-        { "character": "难", "pinyin": "nán", "translation": "трудный" },
-        { "character": "难过", "pinyin": "nánguò", "translation": "грустный, переживать" },
-        { "character": "年级", "pinyin": "niánjí", "translation": "класс, курс" },
-        { "character": "年轻", "pinyin": "niánqīng", "translation": "молодой" },
-        { "character": "鸟", "pinyin": "niǎo", "translation": "птица" },
-        { "character": "努力", "pinyin": "nǔlì", "translation": "стараться, усердный" },
-        { "character": "爬山", "pinyin": "páshān", "translation": "восходить на гору" },
-        { "character": "盘子", "pinyin": "pánzi", "translation": "тарелка" },
-        { "character": "胖", "pinyin": "pàng", "translation": "толстый" },
-        { "character": "啤酒", "pinyin": "píjiǔ", "translation": "пиво" },
-        { "character": "皮鞋", "pinyin": "píxié", "translation": "кожаная обувь" },
-        { "character": "瓶子", "pinyin": "píngzi", "translation": "бутылка" },
-        { "character": "其实", "pinyin": "qíshí", "translation": "на самом деле" },
-        { "character": "其他", "pinyin": "qítā", "translation": "другой, остальные" },
-        { "character": "骑", "pinyin": "qí", "translation": "ехать (верхом)" },
-        { "character": "奇怪", "pinyin": "qíguài", "translation": "странный" },
-        { "character": "起飞", "pinyin": "qǐfēi", "translation": "взлетать" },
-        { "character": "起来", "pinyin": "qǐlái", "translation": "вставать, подниматься" },
-        { "character": "清楚", "pinyin": "qīngchu", "translation": "четкий, ясный" },
-        { "character": "秋", "pinyin": "qiū", "translation": "осень" },
-        { "character": "裙子", "pinyin": "qúnzi", "translation": "юбка" },
-        { "character": "然后", "pinyin": "ránhòu", "translation": "потом, затем" },
-        { "character": "热情", "pinyin": "rèqíng", "translation": "сердечный, дружелюбный" },
-        { "character": "认为", "pinyin": "rènwéi", "translation": "считать, полагать" },
-        { "character": "认真", "pinyin": "rènzhēn", "translation": "серьезный, добросовестный" },
-        { "character": "容易", "pinyin": "róngyì", "translation": "легкий, легко" },
-        { "character": "如果", "pinyin": "rúguǒ", "translation": "если" },
-        { "character": "伞", "pinyin": "sǎn", "translation": "зонт" },
-        { "character": "上网", "pinyin": "shàngwǎng", "translation": "выходить в интернет" },
-        { "character": "生气", "pinyin": "shēngqì", "translation": "злиться" },
-        { "character": "声音", "pinyin": "shēngyīn", "translation": "звук, голос" },
-        { "character": "世界", "pinyin": "shìjiè", "translation": "мир, вселенная" },
-        { "character": "试", "pinyin": "shì", "translation": "пробовать, тестировать" },
-        { "character": "瘦", "pinyin": "shòu", "translation": "худой" },
-        { "character": "叔叔", "pinyin": "shūshu", "translation": "дядя (младший брат отца)" },
-        { "character": "舒服", "pinyin": "shūfu", "translation": "удобный, комфортный" },
-        { "character": "树", "pinyin": "shù", "translation": "дерево" },
-        { "character": "数学", "pinyin": "shùxué", "translation": "математика" },
-        { "character": "刷牙", "pinyin": "shuā yá", "translation": "чистить зубы" },
-        { "character": "双", "pinyin": "shuāng", "translation": "пара, сч. слово для парных предметов" },
-        { "character": "水平", "pinyin": "shuǐpíng", "translation": "уровень" },
-        { "character": "司机", "pinyin": "sījī", "translation": "водитель" },
-        { "character": "太阳", "pinyin": "tàiyáng", "translation": "солнце" },
-        { "character": "特别", "pinyin": "tèbié", "translation": "особенный" },
-        { "character": "疼", "pinyin": "téng", "translation": "болеть" },
-        { "character": "提高", "pinyin": "tígāo", "translation": "повышать, улучшать" },
-        { "character": "体育", "pinyin": "tǐyù", "translation": "спорт" },
-        { "character": "甜", "pinyin": "tián", "translation": "сладкий" },
-        { "character": "条", "pinyin": "tiáo", "translation": "сч. слово для длинных объектов" },
-        { "character": "同事", "pinyin": "tóngshì", "translation": "коллега" },
-        { "character": "同意", "pinyin": "tóngyì", "translation": "соглашаться" },
-        { "character": "头发", "pinyin": "tóufa", "translation": "волосы" },
-        { "character": "突然", "pinyin": "tūrán", "translation": "вдруг, внезапно" },
-        { "character": "图书馆", "pinyin": "túshūguǎn", "translation": "библиотека" },
-        { "character": "腿", "pinyin": "tuǐ", "translation": "нога" },
-        { "character": "碗", "pinyin": "wǎn", "translation": "чаша, миска" },
-        { "character": "万", "pinyin": "wàn", "translation": "десять тысяч" },
-        { "character": "忘记", "pinyin": "wàngjì", "translation": "забывать" },
-        { "character": "为", "pinyin": "wèi", "translation": "для, ради" },
-        { "character": "为了", "pinyin": "wèile", "translation": "для того чтобы, ради" },
-        { "character": "位", "pinyin": "wèi", "translation": "сч. слово для уважаемых людей" },
-        { "character": "文化", "pinyin": "wénhuà", "translation": "культура" },
-        { "character": "西", "pinyin": "xī", "translation": "запад" },
-        { "character": "习惯", "pinyin": "xíguàn", "translation": "привычка, привыкать" },
-        { "character": "洗手间", "pinyin": "xǐshǒujiān", "translation": "туалет" },
-        { "character": "洗澡", "pinyin": "xǐzǎo", "translation": "купаться" },
-        { "character": "夏", "pinyin": "xià", "translation": "лето" },
-        { "character": "先", "pinyin": "xiān", "translation": "сначала" },
-        { "character": "相信", "pinyin": "xiāngxìn", "translation": "верить, доверять" },
-        { "character": "香蕉", "pinyin": "xiāngjiāo", "translation": "банан" },
-        { "character": "向", "pinyin": "xiàng", "translation": "к, по направлению к" },
-        { "character": "像", "pinyin": "xiàng", "translation": "быть похожим, напоминать" },
-        { "character": "小心", "pinyin": "xiǎoxīn", "translation": "осторожный, быть осторожным" },
-        { "character": "校长", "pinyin": "xiàozhǎng", "translation": "директор школы" },
-        { "character": "新闻", "pinyin": "xīnwén", "translation": "новости" },
-        { "character": "新鲜", "pinyin": "xīnxiān", "translation": "свежий" },
-        { "character": "信用卡", "pinyin": "xìnyòngkǎ", "translation": "кредитная карта" },
-        { "character": "行李箱", "pinyin": "xínglǐxiāng", "translation": "чемодан" },
-        { "character": "熊猫", "pinyin": "xióngmāo", "translation": "панда" },
-        { "character": "需要", "pinyin": "xūyào", "translation": "нужно, нуждаться" },
-        { "character": "选择", "pinyin": "xuǎnzé", "translation": "выбирать, выбор" },
-        { "character": "眼镜", "pinyin": "yǎnjìng", "translation": "очки" },
-        { "character": "要求", "pinyin": "yāoqiú", "translation": "требовать, требование" },
-        { "character": "爷爷", "pinyin": "yéye", "translation": "дедушка (по отцу)" },
-        { "character": "一定", "pinyin": "yídìng", "translation": "обязательно, точно" },
-        { "character": "一共", "pinyin": "yígòng", "translation": "всего, итого" },
-        { "character": "一会儿", "pinyin": "yíhuìr", "translation": "немного, недолго" },
-        { "character": "一样", "pinyin": "yíyàng", "translation": "одинаковый" },
-        { "character": "一般", "pinyin": "yìbān", "translation": "обычно, обычный" },
-        { "character": "一直", "pinyin": "yìzhí", "translation": "прямо, всё время" },
-        { "character": "音乐", "pinyin": "yīnyuè", "translation": "музыка" },
-        { "character": "银行", "pinyin": "yínháng", "translation": "банк" },
-        { "character": "饮料", "pinyin": "yǐnliào", "translation": "напиток" },
-        { "character": "应该", "pinyin": "yīnggāi", "translation": "должен, следует" },
-        { "character": "影响", "pinyin": "yǐngxiǎng", "translation": "влиять, влияние" },
-        { "character": "用", "pinyin": "yòng", "translation": "использовать" },
-        { "character": "游戏", "pinyin": "yóuxì", "translation": "игра" },
-        { "character": "有名", "pinyin": "yǒumíng", "translation": "известный" },
-        { "character": "遇到", "pinyin": "yùdào", "translation": "встретить(ся)" },
-        { "character": "愿意", "pinyin": "yuànyì", "translation": "желать, соглашаться" },
-        { "character": "月亮", "pinyin": "yuèliang", "translation": "луна" },
-        { "character": "越", "pinyin": "yuè", "translation": "чем… тем…" },
-        { "character": "站", "pinyin": "zhàn", "translation": "стоять, остановка" },
-        { "character": "长", "pinyin": "zhǎng", "translation": "расти" },
-        { "character": "着急", "pinyin": "zháojí", "translation": "волноваться, беспокоиться" },
-        { "character": "照片", "pinyin": "zhàopiàn", "translation": "фотография" },
-        { "character": "照相机", "pinyin": "zhàoxiàngjī", "translation": "фотоаппарат" },
-        { "character": "只", "pinyin": "zhǐ", "translation": "только" },
-        { "character": "中间", "pinyin": "zhōngjiān", "translation": "посередине" },
-        { "character": "中文", "pinyin": "zhōngwén", "translation": "китайский язык" },
-        { "character": "终于", "pinyin": "zhōngyú", "translation": "наконец" },
-        { "character": "种", "pinyin": "zhǒng", "translation": "вид, тип" },
-        { "character": "重要", "pinyin": "zhòngyào", "translation": "важный" },
-        { "character": "周末", "pinyin": "zhōumò", "translation": "выходные" },
-        { "character": "祝", "pinyin": "zhù", "translation": "желать (кому-то что-то)" },
-        { "character": "注意", "pinyin": "zhùyì", "translation": "обращать внимание" },
-        { "character": "自己", "pinyin": "zìjǐ", "translation": "сам, себя" },
-        { "character": "总是", "pinyin": "zǒngshì", "translation": "всегда" },
-        { "character": "嘴", "pinyin": "zuǐ", "translation": "рот" },
-        { "character": "最后", "pinyin": "zuìhòu", "translation": "последний, наконец" },
-        { "character": "最近", "pinyin": "zuìjìn", "translation": "в последнее время" },
-        { "character": "作业", "pinyin": "zuòyè", "translation": "домашнее задание" },
-        { "character": "作用", "pinyin": "zuòyòng", "translation": "роль, функция" },
-        { "character": "阿姨", "pinyin": "āyí", "translation": "тётя, няня" },
+        { character: "爱", pinyin: "ài", translation: "любить" },
+        { character: "安静", pinyin: "ānjìng", translation: "тихий, спокойный" },
+        { character: "把", pinyin: "bǎ", translation: "предлог (для инверсии объекта)" },
+        { character: "班", pinyin: "bān", translation: "класс, группа" },
+        { character: "搬", pinyin: "bān", translation: "переезжать, перемещать" },
+        { character: "办法", pinyin: "bànfǎ", translation: "метод, способ" },
+        { character: "办公室", pinyin: "bàngōngshì", translation: "офис" },
+        { character: "包", pinyin: "bāo", translation: "сумка, завернуть" },
+        { character: "饱", pinyin: "bǎo", translation: "сытый" },
+        { character: "被", pinyin: "bèi", translation: "предлог для пассива" },
+        { character: "比较", pinyin: "bǐjiào", translation: "сравнительно" },
+        { character: "比赛", pinyin: "bǐsài", translation: "соревнование" },
+        { character: "必须", pinyin: "bìxū", translation: "должен, обязательно" },
+        { character: "变化", pinyin: "biànhuà", translation: "изменение" },
+        { character: "表示", pinyin: "biǎoshì", translation: "выражать" },
+        { character: "表演", pinyin: "biǎoyǎn", translation: "представлять, играть (на сцене)" },
+        { character: "别人", pinyin: "biérén", translation: "другие" },
+        { character: "冰箱", pinyin: "bīngxiāng", translation: "холодильник" },
+        { character: "才", pinyin: "cái", translation: "только, лишь" },
+        { character: "参加", pinyin: "cānjiā", translation: "участвовать" },
+        { character: "草", pinyin: "cǎo", translation: "трава" },
+        { character: "层", pinyin: "céng", translation: "этаж, слой" },
+        { character: "差", pinyin: "chà", translation: "плохой, разница" },
+        { character: "长", pinyin: "cháng", translation: "длинный" },
+        { character: "超市", pinyin: "chāoshì", translation: "супермаркет" },
+        { character: "穿", pinyin: "chuān", translation: "носить (одежду)" },
+        { character: "船", pinyin: "chuán", translation: "корабль" },
+        { character: "成绩", pinyin: "chéngjì", translation: "успехи, достижения" },
+        { character: "春", pinyin: "chūn", translation: "весна" },
+        { character: "词语", pinyin: "cíyǔ", translation: "слова и выражения" },
+        { character: "聪明", pinyin: "cōngmíng", translation: "умный" },
+        { character: "打扫", pinyin: "dǎsǎo", translation: "убирать, подметать" },
+        { character: "打算", pinyin: "dǎsuàn", translation: "планировать" },
+        { character: "带", pinyin: "dài", translation: "приносить, брать с собой" },
+        { character: "担心", pinyin: "dānxīn", translation: "беспокоиться" },
+        { character: "蛋糕", pinyin: "dàngāo", translation: "торт" },
+        { character: "当然", pinyin: "dāngrán", translation: "конечно" },
+        { character: "地", pinyin: "de", translation: "служебное слово (перед сказуемым)" },
+        { character: "灯", pinyin: "dēng", translation: "лампа" },
+        { character: "地方", pinyin: "dìfāng", translation: "место" },
+        { character: "地铁", pinyin: "dìtiě", translation: "метро" },
+        { character: "地图", pinyin: "dìtú", translation: "карта" },
+        { character: "电梯", pinyin: "diàntī", translation: "лифт" },
+        { character: "电子邮件", pinyin: "diànzǐ yóujiàn", translation: "электронная почта" },
+        { character: "东", pinyin: "dōng", translation: "восток" },
+        { character: "冬", pinyin: "dōng", translation: "зима" },
+        { character: "动物", pinyin: "dòngwù", translation: "животное" },
+        { character: "短", pinyin: "duǎn", translation: "короткий" },
+        { character: "段", pinyin: "duàn", translation: "отрезок, кусок" },
+        { character: "锻炼", pinyin: "duànliàn", translation: "тренироваться" },
+        { character: "多么", pinyin: "duōme", translation: "такой, настолько" },
+        { character: "饿", pinyin: "è", translation: "голодный" },
+        { character: "耳朵", pinyin: "ěrduo", translation: "ухо" },
+        { character: "发", pinyin: "fā", translation: "отправить" },
+        { character: "发现", pinyin: "fāxiàn", translation: "обнаружить" },
+        { character: "方便", pinyin: "fāngbiàn", translation: "удобный" },
+        { character: "放", pinyin: "fàng", translation: "ставить, отпускать" },
+        { character: "放心", pinyin: "fàngxīn", translation: "быть спокойным" },
+        { character: "分", pinyin: "fēn", translation: "минутa, делить" },
+        { character: "附近", pinyin: "fùjìn", translation: "окрестности" },
+        { character: "复习", pinyin: "fùxí", translation: "повторять" },
+        { character: "干净", pinyin: "gānjìng", translation: "чистый" },
+        { character: "感冒", pinyin: "gǎnmào", translation: "простудиться" },
+        { character: "感兴趣", pinyin: "gǎn xìngqù", translation: "интересоваться" },
+        { character: "刚才", pinyin: "gāngcái", translation: "только что" },
+        { character: "个子", pinyin: "gèzi", translation: "рост, комплекция" },
+        { character: "根据", pinyin: "gēnjù", translation: "на основании, согласно" },
+        { character: "跟", pinyin: "gēn", translation: "с, за" },
+        { character: "更", pinyin: "gèng", translation: "еще более" },
+        { character: "公园", pinyin: "gōngyuán", translation: "парк" },
+        { character: "故事", pinyin: "gùshi", translation: "история, рассказ" },
+        { character: "刮风", pinyin: "guā fēng", translation: "дуть (о ветре)" },
+        { character: "关", pinyin: "guān", translation: "закрывать" },
+        { character: "关系", pinyin: "guānxi", translation: "отношение, связь" },
+        { character: "关心", pinyin: "guānxīn", translation: "заботиться" },
+        { character: "关于", pinyin: "guānyú", translation: "о, относительно" },
+        { character: "国家", pinyin: "guójiā", translation: "государство" },
+        { character: "过去", pinyin: "guòqù", translation: "прошлое" },
+        { character: "还是", pinyin: "háishì", translation: "или, все еще" },
+        { character: "害怕", pinyin: "hàipà", translation: "бояться" },
+        { character: "黑板", pinyin: "hēibǎn", translation: "доска (классная)" },
+        { character: "后来", pinyin: "hòulái", translation: "позже, потом" },
+        { character: "护照", pinyin: "hùzhào", translation: "паспорт" },
+        { character: "花", pinyin: "huā", translation: "цветок, тратить" },
+        { character: "画", pinyin: "huà", translation: "рисовать, картина" },
+        { character: "坏", pinyin: "huài", translation: "плохой, испорченный" },
+        { character: "环境", pinyin: "huánjìng", translation: "окружение, среда" },
+        { character: "换", pinyin: "huàn", translation: "менять, обменивать" },
+        { character: "黄河", pinyin: "huánghé", translation: "Желтая река" },
+        { character: "回答", pinyin: "huídá", translation: "отвечать" },
+        { character: "会议", pinyin: "huìyì", translation: "совещание, конференция" },
+        { character: "或者", pinyin: "huòzhě", translation: "или (в утвердит. предложениях)" },
+        { character: "机会", pinyin: "jīhuì", translation: "шанс, возможность" },
+        { character: "极", pinyin: "jí", translation: "очень, крайний" },
+        { character: "记得", pinyin: "jìde", translation: "помнить" },
+        { character: "季节", pinyin: "jìjié", translation: "сезон, время года" },
+        { character: "检查", pinyin: "jiǎnchá", translation: "проверять, осматривать" },
+        { character: "简单", pinyin: "jiǎndān", translation: "простой" },
+        { character: "见面", pinyin: "jiànmiàn", translation: "встречаться" },
+        { character: "健康", pinyin: "jiànkāng", translation: "здоровье" },
+        { character: "讲", pinyin: "jiǎng", translation: "рассказывать, объяснять" },
+        { character: "教", pinyin: "jiāo", translation: "учить, преподавать" },
+        { character: "角", pinyin: "jiǎo", translation: "рог, угол" },
+        { character: "脚", pinyin: "jiǎo", translation: "нога, ступня" },
+        { character: "叫", pinyin: "jiào", translation: "звать, кричать" },
+        { character: "接", pinyin: "jiē", translation: "принимать, брать (телефон)" },
+        { character: "街道", pinyin: "jiēdào", translation: "улица" },
+        { character: "结婚", pinyin: "jiéhūn", translation: "жениться, выходить замуж" },
+        { character: "结束", pinyin: "jiéshù", translation: "заканчивать" },
+        { character: "节目", pinyin: "jiémù", translation: "программа" },
+        { character: "节日", pinyin: "jiérì", translation: "праздник" },
+        { character: "解决", pinyin: "jiějué", translation: "решать (проблему)" },
+        { character: "借", pinyin: "jiè", translation: "брать взаймы" },
+        { character: "经常", pinyin: "jīngcháng", translation: "часто" },
+        { character: "经过", pinyin: "jīngguò", translation: "проходить через" },
+        { character: "经理", pinyin: "jīnglǐ", translation: "менеджер" },
+        { character: "久", pinyin: "jiǔ", translation: "долго" },
+        { character: "旧", pinyin: "jiù", translation: "старый (о вещах)" },
+        { character: "句子", pinyin: "jùzi", translation: "предложение" },
+        { character: "决定", pinyin: "juédìng", translation: "решать, решение" },
+        { character: "渴", pinyin: "kě", translation: "хотеть пить" },
+        { character: "可爱", pinyin: "kě'ài", translation: "милый, симпатичный" },
+        { character: "刻", pinyin: "kè", translation: "четверть (часа)" },
+        { character: "客人", pinyin: "kèrén", translation: "гость, клиент" },
+        { character: "空调", pinyin: "kōngtiáo", translation: "кондиционер" },
+        { character: "口", pinyin: "kǒu", translation: "рот, сч. слово для членов семьи" },
+        { character: "哭", pinyin: "kū", translation: "плакать" },
+        { character: "裤子", pinyin: "kùzi", translation: "брюки" },
+        { character: "筷子", pinyin: "kuàizi", translation: "палочки для еды" },
+        { character: "蓝", pinyin: "lán", translation: "синий" },
+        { character: "老", pinyin: "lǎo", translation: "старый (о людях)" },
+        { character: "离开", pinyin: "líkāi", translation: "покидать, уходить" },
+        { character: "礼物", pinyin: "lǐwù", translation: "подарок" },
+        { character: "历史", pinyin: "lìshǐ", translation: "история" },
+        { character: "脸", pinyin: "liǎn", translation: "лицо" },
+        { character: "练习", pinyin: "liànxí", translation: "практиковаться" },
+        { character: "辆", pinyin: "liàng", translation: "сч. слово для транспорта" },
+        { character: "聊天", pinyin: "liáotiān", translation: "болтать, общаться" },
+        { character: "了解", pinyin: "liǎojiě", translation: "понимать, разбираться" },
+        { character: "邻居", pinyin: "línjū", translation: "сосед" },
+        { character: "楼", pinyin: "lóu", translation: "здание, этаж" },
+        { character: "绿", pinyin: "lǜ", translation: "зеленый" },
+        { character: "马", pinyin: "mǎ", translation: "лошадь" },
+        { character: "马上", pinyin: "mǎshàng", translation: "сразу, немедленно" },
+        { character: "满意", pinyin: "mǎnyì", translation: "довольный" },
+        { character: "帽子", pinyin: "màozi", translation: "шапка, головной убор" },
+        { character: "没关系", pinyin: "méi guānxi", translation: "не имеет значения" },
+        { character: "面包", pinyin: "miànbāo", translation: "хлеб" },
+        { character: "面条", pinyin: "miàntiáo", translation: "лапша" },
+        { character: "明白", pinyin: "míngbai", translation: "понимать, ясный" },
+        { character: "拿", pinyin: "ná", translation: "держать, брать" },
+        { character: "奶奶", pinyin: "nǎinai", translation: "бабушка (по отцу)" },
+        { character: "南", pinyin: "nán", translation: "юг" },
+        { character: "难", pinyin: "nán", translation: "трудный" },
+        { character: "难过", pinyin: "nánguò", translation: "грустный, переживать" },
+        { character: "年级", pinyin: "niánjí", translation: "класс, курс" },
+        { character: "年轻", pinyin: "niánqīng", translation: "молодой" },
+        { character: "鸟", pinyin: "niǎo", translation: "птица" },
+        { character: "努力", pinyin: "nǔlì", translation: "стараться, усердный" },
+        { character: "爬山", pinyin: "páshān", translation: "восходить на гору" },
+        { character: "盘子", pinyin: "pánzi", translation: "тарелка" },
+        { character: "胖", pinyin: "pàng", translation: "толстый" },
+        { character: "啤酒", pinyin: "píjiǔ", translation: "пиво" },
+        { character: "皮鞋", pinyin: "píxié", translation: "кожаная обувь" },
+        { character: "瓶子", pinyin: "píngzi", translation: "бутылка" },
+        { character: "其实", pinyin: "qíshí", translation: "на самом деле" },
+        { character: "其他", pinyin: "qítā", translation: "другой, остальные" },
+        { character: "骑", pinyin: "qí", translation: "ехать (верхом)" },
+        { character: "奇怪", pinyin: "qíguài", translation: "странный" },
+        { character: "起飞", pinyin: "qǐfēi", translation: "взлетать" },
+        { character: "起来", pinyin: "qǐlái", translation: "вставать, подниматься" },
+        { character: "清楚", pinyin: "qīngchu", translation: "четкий, ясный" },
+        { character: "秋", pinyin: "qiū", translation: "осень" },
+        { character: "裙子", pinyin: "qúnzi", translation: "юбка" },
+        { character: "然后", pinyin: "ránhòu", translation: "потом, затем" },
+        { character: "热情", pinyin: "rèqíng", translation: "сердечный, дружелюбный" },
+        { character: "认为", pinyin: "rènwéi", translation: "считать, полагать" },
+        { character: "认真", pinyin: "rènzhēn", translation: "серьезный, добросовестный" },
+        { character: "容易", pinyin: "róngyì", translation: "легкий, легко" },
+        { character: "如果", pinyin: "rúguǒ", translation: "если" },
+        { character: "伞", pinyin: "sǎn", translation: "зонт" },
+        { character: "上网", pinyin: "shàngwǎng", translation: "выходить в интернет" },
+        { character: "生气", pinyin: "shēngqì", translation: "злиться" },
+        { character: "声音", pinyin: "shēngyīn", translation: "звук, голос" },
+        { character: "世界", pinyin: "shìjiè", translation: "мир, вселенная" },
+        { character: "试", pinyin: "shì", translation: "пробовать, тестировать" },
+        { character: "瘦", pinyin: "shòu", translation: "худой" },
+        { character: "叔叔", pinyin: "shūshu", translation: "дядя (младший брат отца)" },
+        { character: "舒服", pinyin: "shūfu", translation: "удобный, комфортный" },
+        { character: "树", pinyin: "shù", translation: "дерево" },
+        { character: "数学", pinyin: "shùxué", translation: "математика" },
+        { character: "刷牙", pinyin: "shuā yá", translation: "чистить зубы" },
+        { character: "双", pinyin: "shuāng", translation: "пара, сч. слово для парных предметов" },
+        { character: "水平", pinyin: "shuǐpíng", translation: "уровень" },
+        { character: "司机", pinyin: "sījī", translation: "водитель" },
+        { character: "太阳", pinyin: "tàiyáng", translation: "солнце" },
+        { character: "特别", pinyin: "tèbié", translation: "особенный" },
+        { character: "疼", pinyin: "téng", translation: "болеть" },
+        { character: "提高", pinyin: "tígāo", translation: "повышать, улучшать" },
+        { character: "体育", pinyin: "tǐyù", translation: "спорт" },
+        { character: "甜", pinyin: "tián", translation: "сладкий" },
+        { character: "条", pinyin: "tiáo", translation: "сч. слово для длинных объектов" },
+        { character: "同事", pinyin: "tóngshì", translation: "коллега" },
+        { character: "同意", pinyin: "tóngyì", translation: "соглашаться" },
+        { character: "头发", pinyin: "tóufa", translation: "волосы" },
+        { character: "突然", pinyin: "tūrán", translation: "вдруг, внезапно" },
+        { character: "图书馆", pinyin: "túshūguǎn", translation: "библиотека" },
+        { character: "腿", pinyin: "tuǐ", translation: "нога" },
+        { character: "碗", pinyin: "wǎn", translation: "чаша, миска" },
+        { character: "万", pinyin: "wàn", translation: "десять тысяч" },
+        { character: "忘记", pinyin: "wàngjì", translation: "забывать" },
+        { character: "为", pinyin: "wèi", translation: "для, ради" },
+        { character: "为了", pinyin: "wèile", translation: "для того чтобы, ради" },
+        { character: "位", pinyin: "wèi", translation: "сч. слово для уважаемых людей" },
+        { character: "文化", pinyin: "wénhuà", translation: "культура" },
+        { character: "西", pinyin: "xī", translation: "запад" },
+        { character: "习惯", pinyin: "xíguàn", translation: "привычка, привыкать" },
+        { character: "洗手间", pinyin: "xǐshǒujiān", translation: "туалет" },
+        { character: "洗澡", pinyin: "xǐzǎo", translation: "купаться" },
+        { character: "夏", pinyin: "xià", translation: "лето" },
+        { character: "先", pinyin: "xiān", translation: "сначала" },
+        { character: "相信", pinyin: "xiāngxìn", translation: "верить, доверять" },
+        { character: "香蕉", pinyin: "xiāngjiāo", translation: "банан" },
+        { character: "向", pinyin: "xiàng", translation: "к, по направлению к" },
+        { character: "像", pinyin: "xiàng", translation: "быть похожим, напоминать" },
+        { character: "小心", pinyin: "xiǎoxīn", translation: "осторожный, быть осторожным" },
+        { character: "校长", pinyin: "xiàozhǎng", translation: "директор школы" },
+        { character: "新闻", pinyin: "xīnwén", translation: "новости" },
+        { character: "新鲜", pinyin: "xīnxiān", translation: "свежий" },
+        { character: "信用卡", pinyin: "xìnyòngkǎ", translation: "кредитная карта" },
+        { character: "行李箱", pinyin: "xínglǐxiāng", translation: "чемодан" },
+        { character: "熊猫", pinyin: "xióngmāo", translation: "панда" },
+        { character: "需要", pinyin: "xūyào", translation: "нужно, нуждаться" },
+        { character: "选择", pinyin: "xuǎnzé", translation: "выбирать, выбор" },
+        { character: "眼镜", pinyin: "yǎnjìng", translation: "очки" },
+        { character: "要求", pinyin: "yāoqiú", translation: "требовать, требование" },
+        { character: "爷爷", pinyin: "yéye", translation: "дедушка (по отцу)" },
+        { character: "一定", pinyin: "yídìng", translation: "обязательно, точно" },
+        { character: "一共", pinyin: "yígòng", translation: "всего, итого" },
+        { character: "一会儿", pinyin: "yíhuìr", translation: "немного, недолго" },
+        { character: "一样", pinyin: "yíyàng", translation: "одинаковый" },
+        { character: "一般", pinyin: "yìbān", translation: "обычно, обычный" },
+        { character: "一直", pinyin: "yìzhí", translation: "прямо, всё время" },
+        { character: "音乐", pinyin: "yīnyuè", translation: "музыка" },
+        { character: "银行", pinyin: "yínháng", translation: "банк" },
+        { character: "饮料", pinyin: "yǐnliào", translation: "напиток" },
+        { character: "应该", pinyin: "yīnggāi", translation: "должен, следует" },
+        { character: "影响", pinyin: "yǐngxiǎng", translation: "влиять, влияние" },
+        { character: "用", pinyin: "yòng", translation: "использовать" },
+        { character: "游戏", pinyin: "yóuxì", translation: "игра" },
+        { character: "有名", pinyin: "yǒumíng", translation: "известный" },
+        { character: "遇到", pinyin: "yùdào", translation: "встретить(ся)" },
+        { character: "愿意", pinyin: "yuànyì", translation: "желать, соглашаться" },
+        { character: "月亮", pinyin: "yuèliang", translation: "луна" },
+        { character: "越", pinyin: "yuè", translation: "чем… тем…" },
+        { character: "站", pinyin: "zhàn", translation: "стоять, остановка" },
+        { character: "长", pinyin: "zhǎng", translation: "расти" },
+        { character: "着急", pinyin: "zháojí", translation: "волноваться, беспокоиться" },
+        { character: "照片", pinyin: "zhàopiàn", translation: "фотография" },
+        { character: "照相机", pinyin: "zhàoxiàngjī", translation: "фотоаппарат" },
+        { character: "只", pinyin: "zhǐ", translation: "только" },
+        { character: "中间", pinyin: "zhōngjiān", translation: "посередине" },
+        { character: "中文", pinyin: "zhōngwén", translation: "китайский язык" },
+        { character: "终于", pinyin: "zhōngyú", translation: "наконец" },
+        { character: "种", pinyin: "zhǒng", translation: "вид, тип" },
+        { character: "重要", pinyin: "zhòngyào", translation: "важный" },
+        { character: "周末", pinyin: "zhōumò", translation: "выходные" },
+        { character: "祝", pinyin: "zhù", translation: "желать (кому-то что-то)" },
+        { character: "注意", pinyin: "zhùyì", translation: "обращать внимание" },
+        { character: "自己", pinyin: "zìjǐ", translation: "сам, себя" },
+        { character: "总是", pinyin: "zǒngshì", translation: "всегда" },
+        { character: "嘴", pinyin: "zuǐ", translation: "рот" },
+        { character: "最后", pinyin: "zuìhòu", translation: "последний, наконец" },
+        { character: "最近", pinyin: "zuìjìn", translation: "в последнее время" },
+        { character: "作业", pinyin: "zuòyè", translation: "домашнее задание" },
+        { character: "作用", pinyin: "zuòyòng", translation: "роль, функция" },
+        { character: "阿姨", pinyin: "āyí", translation: "тётя, няня" },
     ]
     let db = []
     if (lol_1) { db = db.concat(hsk1_old) }
     if (lol_2) { db = db.concat(hsk2_old) }
     if (lol_3) { db = db.concat(hsk3_old) }
-
-    console.log(db);
 
     function lol(a) {
         if (a == 1) { lol_1 = !lol_1 };
@@ -1969,6 +2045,38 @@
             if (lol_1) { db = db.concat(hsk1_old) }
             if (lol_2) { db = db.concat(hsk2_old) }
             if (lol_3) { db = db.concat(hsk3_old) }
+        }
+    }
+
+
+    let hskWords = []
+    hskWords = hskWords.concat(hsk1_old)
+    hskWords = hskWords.concat(hsk2_old)
+    hskWords = hskWords.concat(hsk3_old)
+    function filterWords(input) {
+        const lowerInput = input.toLowerCase();
+        return hskWords.filter(word =>
+            word.character.toLowerCase().includes(lowerInput) ||
+            word.pinyin.toLowerCase().includes(lowerInput) ||
+            word.translation.toLowerCase().includes(lowerInput)
+        )
+    }
+    function filterWords_lol() {
+        if(document.querySelector('.filt_inp').value!=''){
+            document.querySelector('.main_filt_block').innerHTML = ''
+            let filterWords_lol = filterWords(document.querySelector('.filt_inp').value)
+            filterWords(document.querySelector('.filt_inp').value).map((a) => {
+                document.querySelector('.main_filt_block').innerHTML += `
+                <div class="main_filt_block_block">
+                    <h1>${a.character}</h1>
+                    <div class="rg">
+                        <h1>${a.translation}</h1>
+                        <h1>${a.pinyin}</h1>
+                    </div>
+                </div>
+                `
+                console.log(a);
+            })
         }
     }
 
